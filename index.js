@@ -5,6 +5,7 @@ import { dbPass, dbPort, dbUsername, serverPort } from "./src/config/index.js";
 import bodyParser from "body-parser";
 import logger from "./src/utils/logger.js";
 import cronJobRoutes from "./src/routes/cronJob.js";
+import userRoutes from "./src/routes/users.js";
 import "./src/db/index.js";
 import "./src/models/user.js";
 
@@ -18,6 +19,7 @@ app.use(logger);
 
 // Routes
 app.use("/sync", cronJobRoutes);
+app.use("/auth", userRoutes);
 
 // Start
 app.listen(serverPort, () => {

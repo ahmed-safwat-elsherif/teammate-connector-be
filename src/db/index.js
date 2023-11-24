@@ -6,6 +6,7 @@ const sequelize = new Sequelize("Teammate", dbUsername, dbPass, {
   host: "localhost",
   dialect: "mssql",
   port: dbPort,
+  logging: false,
 });
 
 try {
