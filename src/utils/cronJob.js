@@ -36,6 +36,7 @@ class CronJobFactory {
 
   getSettings() {
     const { hours, minutes, seconds } = this.time;
+    console.log(this.time);
     const time =
       hours !== "*" && minutes !== "*" && seconds !== "*"
         ? `${hours}:${minutes}:${seconds}`
@@ -54,7 +55,7 @@ class CronJobFactory {
     if (!type) throw new Error("a cron job type should be specified");
     this.type = type;
     const { data: parsedTime, isValid } = parseTime(time);
-    this.time = parseTime;
+    this.time = parsedTime;
     if (!isValid) throw new Error("Couldn't parse the given time");
 
     switch (type) {
