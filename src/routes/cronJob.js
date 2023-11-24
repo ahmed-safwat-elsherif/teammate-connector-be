@@ -1,9 +1,10 @@
 import express from "express";
 import cronJob from "../utils/cronJob.js";
+import authenticate from "../middlewares/authenticate.js";
 
 const router = express.Router();
 
-router.get("/settings", (_, res) => {
+router.get("/settings", authenticate, (_, res) => {
   res.json(cronJob.getSettings());
 });
 
