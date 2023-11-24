@@ -23,8 +23,8 @@ app.get("/", (_, res) => {
   res.json({ message: "Hello" });
 });
 
-app.get("/sync/settings", (req, res) => {
-  res.json({ me });
+app.get("/sync/settings", (_, res) => {
+  res.json(cronJob.getSettings());
 });
 
 app.post("/sync/settings", (req, res) => {
