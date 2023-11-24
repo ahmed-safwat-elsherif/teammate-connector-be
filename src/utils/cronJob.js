@@ -9,7 +9,7 @@ class CronJobFactory {
   /**
    * @type {keyof typeof CRON_TYPES}
    */
-  type;
+  type = null;
   /**
    * @type {{
    * hours: string | number | '*',
@@ -17,7 +17,11 @@ class CronJobFactory {
    * seconds: string | number | '*',
    * }}
    */
-  time = {};
+  time = {
+    hours: "*",
+    minutes: "*",
+    seconds: "*",
+  };
   weekDay;
   monthDay;
   /**
