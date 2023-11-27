@@ -1,5 +1,6 @@
-import { CronJob, timeout } from "cron";
+import { CronJob } from "cron";
 import moment from "moment";
+import { readSettings, writeSettings } from "./settings.js";
 
 class CronJobFactory {
   /**
@@ -35,12 +36,8 @@ class CronJobFactory {
   }
 
   getSettings() {
-    const { hours, minutes, seconds } = this.time;
-    console.log(this.time);
-    const time =
-      hours !== "*" && minutes !== "*" && seconds !== "*"
-        ? `${hours}:${minutes}:${seconds}`
-        : null;
+    const time = timeObjToStr(this.time);
+
     return {
       time,
       type: this.type,
@@ -50,7 +47,7 @@ class CronJobFactory {
     };
   }
 
-  start(onTick, options) {
+  async start(onTick, options) {
     const { type, time, weekDay, monthDay, quarterMonths, timezone } = options;
     if (!type) throw new Error("a cron job type should be specified");
     this.type = type;
@@ -106,6 +103,7 @@ class CronJobFactory {
       default:
         break;
     }
+
     this.cronJobs.forEach((job) => {
       job.start();
     });
@@ -114,9 +112,18 @@ class CronJobFactory {
 
 const cronJob = new CronJobFactory();
 
+(async () => {
+  const preSavedSettings = await readSettings();
+  console.log(preSavedSettings);
+  cronJob.start(() => console.log("Helloooo"), preSavedSettings);
+})();
+
 export default cronJob;
 
-// UTILS:
+//                =======================================================================================
+//                ======================================= UTILS =========================================
+//                =======================================================================================
+
 export const CRON_TYPES = {
   WEEKLY: "WEEKLY",
   MONTHLY: "MONTHLY",
@@ -138,6 +145,13 @@ const parseTime = (time) => {
     data = null;
   }
   return { isValid, data };
+};
+
+const timeObjToStr = (time) => {
+  const { hours, minutes, seconds } = time;
+  return hours !== "*" && minutes !== "*" && seconds !== "*"
+    ? `${hours}:${minutes}:${seconds}`
+    : null;
 };
 
 const createWeeklyCronJob = (weekDay, time, timeZone, onTick) => {

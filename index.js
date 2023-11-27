@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import { dbPass, dbPort, dbUsername, serverPort } from "./src/config/index.js";
+import { serverPort } from "./src/config/index.js";
 import bodyParser from "body-parser";
 import logger from "./src/utils/logger.js";
 import cronJobRoutes from "./src/routes/cronJob.js";

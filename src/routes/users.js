@@ -80,7 +80,7 @@ router.post("/token/refresh", (req, res) => {
   const result = verifyRefreshToken(refreshToken);
 
   if (!result.success) {
-    return res.status(403).json({ error: result.error });
+    return res.status(403).json({ error: "Refresh token expired!" });
   }
 
   const { exp, iat, ...user } = result.data;
