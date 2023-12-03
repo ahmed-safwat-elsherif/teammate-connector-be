@@ -1,5 +1,7 @@
-import { CronJob, timeout } from "cron";
+import { CronJob } from "cron";
 import moment from "moment";
+import { readSettings, writeSettings } from "./settings.js";
+import syncronize from "./syncronize.js";
 
 class CronJobFactory {
   /**
@@ -22,12 +24,12 @@ class CronJobFactory {
     minutes: "*",
     seconds: "*",
   };
-  weekDay;
-  monthDay;
+  weekDay = 0;
+  monthDay = null;
   /**
    * @type {string[]}
    */
-  quarterMonths;
+  quarterMonths = [];
 
   clearAll() {
     this.cronJobs.forEach((job) => job.stop());
@@ -35,12 +37,8 @@ class CronJobFactory {
   }
 
   getSettings() {
-    const { hours, minutes, seconds } = this.time;
-    console.log(this.time);
-    const time =
-      hours !== "*" && minutes !== "*" && seconds !== "*"
-        ? `${hours}:${minutes}:${seconds}`
-        : null;
+    const time = timeObjToStr(this.time);
+
     return {
       time,
       type: this.type,
@@ -50,12 +48,13 @@ class CronJobFactory {
     };
   }
 
-  start(onTick, options) {
+  async setConfig(options) {
     const { type, time, weekDay, monthDay, quarterMonths, timezone } = options;
     if (!type) throw new Error("a cron job type should be specified");
     this.type = type;
     const { data: parsedTime, isValid } = parseTime(time);
     this.time = parsedTime;
+
     if (!isValid) throw new Error("Couldn't parse the given time");
 
     switch (type) {
@@ -68,11 +67,12 @@ class CronJobFactory {
           weekDay,
           parsedTime,
           timezone,
-          onTick
+          syncronize
         );
 
         break;
       }
+
       case CRON_TYPES.MONTHLY: {
         if (isValidMonthDay(monthDay)) {
           throw new Error("Couldn't parse the given day of month");
@@ -83,7 +83,7 @@ class CronJobFactory {
           monthDay,
           parsedTime,
           timezone,
-          onTick
+          syncronize
         );
         break;
       }
@@ -98,7 +98,7 @@ class CronJobFactory {
           quarterMonths,
           parsedTime,
           timezone,
-          onTick
+          syncronize
         );
         break;
       }
@@ -106,17 +106,38 @@ class CronJobFactory {
       default:
         break;
     }
-    this.cronJobs.forEach((job) => {
-      job.start();
-    });
+    this.start();
+  }
+
+  async persistConfig() {
+    const settings = this.getSettings();
+    await writeSettings(settings);
+  }
+
+  start() {
+    this.cronJobs.forEach((job) => job.start());
+  }
+
+  destroyAll() {
+    this.cronJobs.forEach((job) => job.stop());
   }
 }
 
 const cronJob = new CronJobFactory();
 
+(async () => {
+  // Init the pre-saved config:
+  const preSavedSettings = await readSettings();
+  console.log({ preSavedSettings });
+  cronJob.setConfig(preSavedSettings);
+})();
+
 export default cronJob;
 
-// UTILS:
+//==============================================================================================================
+//================================================== UTILS =====================================================
+//==============================================================================================================
+
 export const CRON_TYPES = {
   WEEKLY: "WEEKLY",
   MONTHLY: "MONTHLY",
@@ -140,6 +161,13 @@ const parseTime = (time) => {
   return { isValid, data };
 };
 
+const timeObjToStr = (time) => {
+  const { hours, minutes, seconds } = time;
+  return hours !== "*" && minutes !== "*" && seconds !== "*"
+    ? `${hours}:${minutes}:${seconds}`
+    : null;
+};
+
 const createWeeklyCronJob = (weekDay, time, timeZone, onTick) => {
   const { hours, minutes, seconds } = time;
   const cronTime = `${seconds} ${minutes} ${hours} * * ${weekDay}`;
@@ -156,6 +184,7 @@ const createMonthlyCronJob = (monthDay, time, timeZone, onTick) => {
  */
 const createQuartersCronJob = (quarterMonths, time, timeZone, onTick) => {
   const { hours, minutes, seconds } = time;
+
   return quarterMonths.map((quarterDay) =>
     CronJob.from({
       cronTime: `${seconds} ${minutes} ${hours} ${moment(quarterDay).format(

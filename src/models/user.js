@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes } from "sequelize";
 import colors from "colors";
 import sequelize from "../db/index.js";
 
