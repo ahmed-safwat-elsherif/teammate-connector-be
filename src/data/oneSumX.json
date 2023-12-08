@@ -1,0 +1,1464 @@
+{
+  "1": {
+    "cabinetId": 1,
+    "cabinetName": "The Bank",
+    "children": {
+      "2": {
+        "folderId": 2,
+        "folderName": "Retail Insurance",
+        "children": {
+          "9": {
+            "folderId": 9,
+            "folderName": "Building & Contents",
+            "risks": [
+              {
+                "riskId": 173,
+                "riskName": "Failure to maintain a policy that addresses information security for all personnel"
+              }
+            ]
+          }
+        }
+      },
+      "3": {
+        "folderId": 3,
+        "folderName": "Corporate & Treasury Services",
+        "children": {
+          "6": {
+            "folderId": 6,
+            "folderName": "Senior Management",
+            "risks": [
+              {
+                "riskId": 61,
+                "riskName": "Lack of resources to support the customer needs (which may result increasing waiting time, cost etc.,)"
+              },
+              { "riskId": 185, "riskName": "Aggressive Sale" }
+            ]
+          },
+          "7": {
+            "folderId": 7,
+            "folderName": "Trading/Treasury",
+            "risks": [
+              {
+                "riskId": 117,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              },
+              {
+                "riskId": 118,
+                "riskName": "Failure to complete enhanced customer identification and due diligence for high risk customers\r\n"
+              },
+              {
+                "riskId": 119,
+                "riskName": "Infrastructure and processes for AML monitoring are not effective\r\n"
+              },
+              {
+                "riskId": 120,
+                "riskName": "Reporting of currency and monetary instrument transactions, wire transfers, and matches to governmental lists is effective\r\n"
+              },
+              {
+                "riskId": 121,
+                "riskName": "Identification and reporting of suspicious activity is ineffective\r\n"
+              },
+              {
+                "riskId": 122,
+                "riskName": "Existing training programs for business and Compliance personnel are not effective\r\n"
+              },
+              {
+                "riskId": 123,
+                "riskName": "Oversight of AML technology and associated vendors is not adequate\r\n"
+              }
+            ]
+          },
+          "18": {
+            "folderId": 18,
+            "folderName": "Compliance",
+            "risks": [{ "riskId": 98, "riskName": "Conflicts of interest" }]
+          },
+          "75": {
+            "folderId": 75,
+            "folderName": "Human Resources",
+            "risks": [
+              {
+                "riskId": 70,
+                "riskName": "Staff absence, sick leave and lateness is not recorded or monitored"
+              },
+              {
+                "riskId": 96,
+                "riskName": "Advertising inadequate to attract prospective customers"
+              }
+            ]
+          },
+          "77": {
+            "folderId": 77,
+            "folderName": "ICT",
+            "risks": [
+              {
+                "riskId": 69,
+                "riskName": "Network infrastructure is not properly maintained or documented"
+              }
+            ]
+          },
+          "83": {
+            "folderId": 83,
+            "folderName": "Financial Control",
+            "risks": [
+              {
+                "riskId": 44,
+                "riskName": "Inadequate control over creation, deletion, modification of GL account numbers"
+              },
+              {
+                "riskId": 45,
+                "riskName": "Inadequate monitoring and follow up of payables and receivables"
+              },
+              {
+                "riskId": 46,
+                "riskName": "Invalid accounts payable are fraudulently created"
+              },
+              {
+                "riskId": 47,
+                "riskName": "Incorrect amounts paid out due to lack of information"
+              }
+            ]
+          }
+        }
+      },
+      "5": {
+        "folderId": 5,
+        "folderName": "Commercial Banking Europe",
+        "children": {
+          "12": {
+            "folderId": 12,
+            "folderName": "Information Security",
+            "risks": [
+              {
+                "riskId": 110,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              },
+              {
+                "riskId": 111,
+                "riskName": "Failure to complete enhanced customer identification and due diligence for high risk customers\r\n"
+              },
+              {
+                "riskId": 112,
+                "riskName": "Infrastructure and processes for AML monitoring are not effective\r\n"
+              },
+              {
+                "riskId": 113,
+                "riskName": "Reporting of currency and monetary instrument transactions, wire transfers, and matches to governmental lists is effective\r\n"
+              },
+              {
+                "riskId": 114,
+                "riskName": "Identification and reporting of suspicious activity is ineffective\r\n"
+              },
+              {
+                "riskId": 115,
+                "riskName": "Existing training programs for business and Compliance personnel are not effective\r\n"
+              },
+              {
+                "riskId": 116,
+                "riskName": "Oversight of AML technology and associated vendors is not adequate\r\n"
+              }
+            ]
+          },
+          "13": {
+            "folderId": 13,
+            "folderName": "Region North",
+            "risks": [
+              {
+                "riskId": 92,
+                "riskName": "Failure to identify prospective institutions to have bi-lateral business relationships"
+              },
+              {
+                "riskId": 94,
+                "riskName": "Training is not necessarily provided as per business needs"
+              },
+              {
+                "riskId": 95,
+                "riskName": "ICT Room does not meet required standards"
+              }
+            ]
+          },
+          "14": {
+            "folderId": 14,
+            "folderName": "Region South",
+            "risks": [
+              {
+                "riskId": 60,
+                "riskName": "Failure to conduct transaction in a timely manner"
+              },
+              {
+                "riskId": 86,
+                "riskName": "Bandwidth between main office and all other locations is insufficient for business operations"
+              },
+              {
+                "riskId": 89,
+                "riskName": "Activated card intercepted before it reaches the customer"
+              }
+            ]
+          },
+          "15": {
+            "folderId": 15,
+            "folderName": "Germany",
+            "risks": [
+              {
+                "riskId": 102,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              },
+              {
+                "riskId": 103,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              },
+              {
+                "riskId": 104,
+                "riskName": "Failure to complete enhanced customer identification and due diligence for high risk customers\r\n"
+              },
+              {
+                "riskId": 105,
+                "riskName": "Infrastructure and processes for AML monitoring are not effective\r\n"
+              },
+              {
+                "riskId": 106,
+                "riskName": "Reporting of currency and monetary instrument transactions, wire transfers, and matches to governmental lists is effective\r\n"
+              },
+              {
+                "riskId": 107,
+                "riskName": "Identification and reporting of suspicious activity is ineffective\r\n"
+              },
+              {
+                "riskId": 108,
+                "riskName": "Existing training programs for business and Compliance personnel are not effective\r\n"
+              },
+              {
+                "riskId": 109,
+                "riskName": "Oversight of AML technology and associated vendors is not adequate\r\n"
+              }
+            ]
+          },
+          "16": {
+            "folderId": 16,
+            "folderName": "Russia",
+            "risks": [
+              {
+                "riskId": 170,
+                "riskName": "Failure to maintain a policy that addresses information security for all personnel"
+              }
+            ]
+          }
+        }
+      },
+      "93": {
+        "folderId": 93,
+        "folderName": "Investment Banking",
+        "children": {
+          "17": {
+            "folderId": 17,
+            "folderName": "Branch Network",
+            "risks": [
+              {
+                "riskId": 63,
+                "riskName": "Incorrect posting of salary to wrong account or payment of the wrong amount"
+              }
+            ]
+          },
+          "74": {
+            "folderId": 74,
+            "folderName": "Client Investing",
+            "risks": [
+              {
+                "riskId": 349,
+                "riskName": "Failure to complete enhanced customer identification and due diligence for high risk customers\n"
+              },
+              {
+                "riskId": 350,
+                "riskName": "Failure to manage clients within TCF principles."
+              },
+              {
+                "riskId": 351,
+                "riskName": "Investment activity is initiated with incomplete or unauthorised client agreements and fund documentation."
+              },
+              {
+                "riskId": 352,
+                "riskName": "Relationship management of institutional client fails to deliver a positive customer experience"
+              },
+              {
+                "riskId": 353,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              }
+            ]
+          },
+          "76": {
+            "folderId": 76,
+            "folderName": "General Management",
+            "risks": [{ "riskId": 171, "riskName": "Conduct Risk" }]
+          },
+          "94": {
+            "folderId": 94,
+            "folderName": "Private Equity Funds",
+            "risks": [
+              {
+                "riskId": 189,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 190,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 191,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 192,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 193,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 194,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 195,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 196,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 197,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 198,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 199,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 200,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "95": {
+            "folderId": 95,
+            "folderName": "Fixed Income Funds",
+            "risks": [
+              {
+                "riskId": 201,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 202,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 205,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 206,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 210,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 211,
+                "riskName": "System failure, malfunction or non performance"
+              },
+              {
+                "riskId": 214,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 215,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 216,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 219,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 220,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 221,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              }
+            ]
+          },
+          "96": {
+            "folderId": 96,
+            "folderName": "Finance",
+            "risks": [
+              {
+                "riskId": 224,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 225,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 226,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 227,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 228,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 229,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 230,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 231,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 232,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 233,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 234,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 235,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "97": {
+            "folderId": 97,
+            "folderName": "Gamma Desk",
+            "risks": [
+              {
+                "riskId": 236,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 237,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 238,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 239,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 240,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 241,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 242,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 243,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 244,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 245,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 246,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 247,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "98": {
+            "folderId": 98,
+            "folderName": "HR",
+            "risks": [
+              {
+                "riskId": 248,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 249,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 250,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 251,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 252,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 253,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 254,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 255,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 256,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 257,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 258,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 259,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "99": {
+            "folderId": 99,
+            "folderName": "Operations",
+            "risks": [
+              {
+                "riskId": 272,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 273,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 274,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 275,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 276,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 277,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 278,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 279,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 280,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 281,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 282,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 283,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "100": {
+            "folderId": 100,
+            "folderName": "Commercial Banking",
+            "risks": [
+              {
+                "riskId": 260,
+                "riskName": "Adverse change in economic conditions"
+              },
+              {
+                "riskId": 261,
+                "riskName": "Adverse legislative or regulatory change"
+              },
+              {
+                "riskId": 262,
+                "riskName": "Failure to properly add and maintain new/existing clients"
+              },
+              {
+                "riskId": 263,
+                "riskName": "Failure to react to changes in client/market needs"
+              },
+              {
+                "riskId": 264,
+                "riskName": "Inability to trade due to network / telecoms communications failure"
+              },
+              {
+                "riskId": 265,
+                "riskName": "Loss due to breach of regulatory rules"
+              },
+              {
+                "riskId": 266,
+                "riskName": "Loss from incomplete or inaccurate trade capture"
+              },
+              {
+                "riskId": 267,
+                "riskName": "Loss from trade execution or arrangement error"
+              },
+              {
+                "riskId": 268,
+                "riskName": "Market perception of impaired competence"
+              },
+              {
+                "riskId": 269,
+                "riskName": "Provision of inaccurate information or data to third parties"
+              },
+              {
+                "riskId": 270,
+                "riskName": "Reputational contagion across the financial services industry"
+              },
+              {
+                "riskId": 271,
+                "riskName": "System failure, malfunction or non performance"
+              }
+            ]
+          },
+          "125": {
+            "folderId": 125,
+            "folderName": "Retail Branches",
+            "risks": [
+              {
+                "riskId": 354,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              }
+            ]
+          }
+        }
+      },
+      "101": {
+        "folderId": 101,
+        "folderName": "Business Division",
+        "children": {
+          "104": {
+            "folderId": 104,
+            "folderName": "Communications",
+            "risks": [
+              { "riskId": 369, "riskName": "Policy Compliance" },
+              {
+                "riskId": 385,
+                "riskName": "Failure to complete full customer identification and due diligence\n"
+              },
+              {
+                "riskId": 386,
+                "riskName": "Identification and reporting of suspicious activity is ineffective\n"
+              },
+              {
+                "riskId": 387,
+                "riskName": "Our staff do not have the skills and expertise to meet all of our clients' needs."
+              }
+            ]
+          },
+          "110": {
+            "folderId": 110,
+            "folderName": "Investment Management",
+            "risks": [
+              { "riskId": 298, "riskName": "Commissions" },
+              { "riskId": 299, "riskName": "Cross trades" },
+              { "riskId": 300, "riskName": "Fair value pricing" },
+              { "riskId": 301, "riskName": "Inducements" },
+              {
+                "riskId": 302,
+                "riskName": "Investment stragegy and restrictions"
+              },
+              { "riskId": 303, "riskName": "Key person dependencies" },
+              { "riskId": 304, "riskName": "Market Abuse" },
+              { "riskId": 305, "riskName": "Media" },
+              { "riskId": 306, "riskName": "Off platform trades" },
+              { "riskId": 307, "riskName": "Order allocation" },
+              { "riskId": 308, "riskName": "Order execution" },
+              { "riskId": 309, "riskName": "Trade approval" },
+              { "riskId": 310, "riskName": "Unauthorised trading." }
+            ]
+          },
+          "118": {
+            "folderId": 118,
+            "folderName": "Retail Operations",
+            "risks": [
+              { "riskId": 285, "riskName": "Accuracy of client reporting" },
+              { "riskId": 286, "riskName": "AMC rebate" },
+              { "riskId": 287, "riskName": "Box management" },
+              { "riskId": 288, "riskName": "Client Money" },
+              { "riskId": 289, "riskName": "Data security" },
+              { "riskId": 290, "riskName": "Fraud" },
+              { "riskId": 291, "riskName": "Fund standing data" },
+              { "riskId": 292, "riskName": "IFDS oversight " },
+              { "riskId": 293, "riskName": "Management & Oversight " },
+              { "riskId": 294, "riskName": "Payments from clients" },
+              { "riskId": 295, "riskName": "Redemption/purchase instructions" },
+              { "riskId": 296, "riskName": "Resourcing" },
+              { "riskId": 297, "riskName": "Sanctions" }
+            ]
+          }
+        }
+      },
+      "127": {
+        "folderId": 127,
+        "folderName": "Asset Management Dublin",
+        "children": {
+          "105": {
+            "folderId": 105,
+            "folderName": "Compliance",
+            "risks": [
+              {
+                "riskId": 372,
+                "riskName": "Failure to ensure that all customers are aware of how to file complaints with the bank."
+              },
+              {
+                "riskId": 373,
+                "riskName": "Failure to provide complete and accurate pre-payment disclosures."
+              },
+              {
+                "riskId": 374,
+                "riskName": "Failure to provide timely notice to consumer regarding a preauthorized electronic funds transfer.\n"
+              },
+              {
+                "riskId": 379,
+                "riskName": "Failure to use a permissible method for determining an estimated exchange rate."
+              },
+              {
+                "riskId": 380,
+                "riskName": "Failure to execute appropriate error remedies."
+              },
+              {
+                "riskId": 382,
+                "riskName": "Failure to send an appropriate and timely notice to a customer regarding recrediting the customer's account"
+              }
+            ]
+          },
+          "128": {
+            "folderId": 128,
+            "folderName": "Private Equity Funds",
+            "risks": [
+              {
+                "riskId": 355,
+                "riskName": "Failure to complete full customer identification and due diligence\n"
+              },
+              {
+                "riskId": 356,
+                "riskName": "Failure to respond to marketplace, legal, technological and regulatory changes"
+              },
+              {
+                "riskId": 357,
+                "riskName": "Our staff do not have the skills and expertise to meet all of our clients' needs."
+              },
+              {
+                "riskId": 358,
+                "riskName": "We do not prevent or detect internal and external transactional fraud."
+              },
+              {
+                "riskId": 359,
+                "riskName": "We fail to identify and react to customer feedback or poor brand perception"
+              },
+              {
+                "riskId": 360,
+                "riskName": "Inadequate verification of pricing sources"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "2": {
+    "cabinetId": 2,
+    "cabinetName": "Retail Insurance",
+    "children": {
+      "8": {
+        "folderId": 8,
+        "folderName": "Medical",
+        "children": {
+          "43": {
+            "folderId": 43,
+            "folderName": "Human Resources",
+            "risks": [
+              {
+                "riskId": 178,
+                "riskName": "Insufficient control over vault documents"
+              }
+            ]
+          },
+          "45": {
+            "folderId": 45,
+            "folderName": "IT",
+            "risks": [
+              {
+                "riskId": 64,
+                "riskName": "Projects are not delivered on time and do not provide value for money"
+              }
+            ]
+          }
+        }
+      },
+      "9": {
+        "folderId": 9,
+        "folderName": "Building & Contents",
+        "children": {
+          "26": {
+            "folderId": 26,
+            "folderName": "Content",
+            "risks": [
+              {
+                "riskId": 66,
+                "riskName": "Failure to take appropriate steps to meet strategic objectives"
+              }
+            ]
+          }
+        }
+      },
+      "10": {
+        "folderId": 10,
+        "folderName": "Pensions",
+        "children": {
+          "47": {
+            "folderId": 47,
+            "folderName": "Human Resources",
+            "risks": [{ "riskId": 87, "riskName": "Benefit Fraud" }]
+          }
+        }
+      },
+      "11": {
+        "folderId": 11,
+        "folderName": "Critical Illness",
+        "children": {
+          "40": {
+            "folderId": 40,
+            "folderName": "Human Resources",
+            "risks": [
+              {
+                "riskId": 65,
+                "riskName": "HR is more reactive than being pro-active in manpower and compensation planning"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "3": {
+    "cabinetId": 3,
+    "cabinetName": "Corporate & Treasury Services",
+    "children": {
+      "7": {
+        "folderId": 7,
+        "folderName": "Trading/Treasury",
+        "children": {
+          "70": {
+            "folderId": 70,
+            "folderName": "Position keeping & risk",
+            "risks": [
+              { "riskId": 159, "riskName": "Inaccurate Positions" },
+              { "riskId": 160, "riskName": "Model Risk" },
+              { "riskId": 161, "riskName": "Pricing Input Risk" },
+              { "riskId": 162, "riskName": "Valuation Risk" },
+              {
+                "riskId": 163,
+                "riskName": "Failure to perform timely Asset Liability Management"
+              },
+              {
+                "riskId": 164,
+                "riskName": "Use of wrong liquidity assumptions which impacts the liquidity forecast mechanism"
+              },
+              { "riskId": 166, "riskName": "Verification of risk limits" },
+              {
+                "riskId": 167,
+                "riskName": "Failure to collect & distribute adequate information from/to all concerned parties"
+              },
+              {
+                "riskId": 168,
+                "riskName": "Failure to monitor performance of the investment"
+              },
+              {
+                "riskId": 169,
+                "riskName": "Lack of limit monitoring and reporting mechanism and issue potential breach alerts to all concerned departments"
+              }
+            ]
+          },
+          "72": {
+            "folderId": 72,
+            "folderName": "Limit Management",
+            "risks": [
+              {
+                "riskId": 67,
+                "riskName": "Insufficient follow ups with customers in recovering the due amounts"
+              }
+            ]
+          }
+        }
+      },
+      "18": {
+        "folderId": 18,
+        "folderName": "Compliance",
+        "children": {
+          "53": {
+            "folderId": 53,
+            "folderName": "Business Compliance Group",
+            "risks": [
+              {
+                "riskId": 35,
+                "riskName": "Failure to monitor compliance with policies and procedures"
+              },
+              {
+                "riskId": 36,
+                "riskName": "Failure to send regulatory reports timely"
+              },
+              {
+                "riskId": 37,
+                "riskName": "Failure to seek relevant approvals (internal and regulatory)"
+              },
+              {
+                "riskId": 38,
+                "riskName": "Failure to apply correct interest rate to customer accounts"
+              },
+              {
+                "riskId": 39,
+                "riskName": "Failure to identify and address customer grievances"
+              }
+            ]
+          },
+          "89": {
+            "folderId": 89,
+            "folderName": "Financial Crime Control",
+            "risks": [
+              {
+                "riskId": 135,
+                "riskName": "External Factors effect the business's ability to be AML compliant\r\n"
+              },
+              {
+                "riskId": 136,
+                "riskName": "Large amount of wire payments\r\n"
+              },
+              {
+                "riskId": 137,
+                "riskName": "Large number of clients using electronic services\r\n"
+              },
+              {
+                "riskId": 138,
+                "riskName": "Large proportion of high risk customers\r\n"
+              },
+              {
+                "riskId": 139,
+                "riskName": "Other non standard products that have an AML requirement\r\n"
+              },
+              {
+                "riskId": 140,
+                "riskName": "Provision of cash and/or currency services\r\n"
+              },
+              {
+                "riskId": 141,
+                "riskName": "Provision of correspondent banking services to unregulated or low regulated entities\r\n"
+              },
+              {
+                "riskId": 142,
+                "riskName": "Provision of Private Banking Services\r\n"
+              },
+              {
+                "riskId": 143,
+                "riskName": "Staff turnover results in a lack of AML experienced staff\r\n"
+              },
+              {
+                "riskId": 144,
+                "riskName": "The business has operations in high risk countries\r\n"
+              },
+              {
+                "riskId": 145,
+                "riskName": "The business is domiciled in a country with lax AML regulations\r\n"
+              },
+              {
+                "riskId": 146,
+                "riskName": "The customer base is unstable and/or grows too fast\r\n"
+              }
+            ]
+          }
+        }
+      },
+      "77": {
+        "folderId": 77,
+        "folderName": "ICT",
+        "children": {
+          "84": {
+            "folderId": 84,
+            "folderName": "Support & Operations",
+            "risks": [
+              {
+                "riskId": 9,
+                "riskName": "Project budgets and costs are not adequately planned in advance"
+              },
+              {
+                "riskId": 10,
+                "riskName": "Projects are conducted without regard to their impact on the resources or processes of the business"
+              },
+              {
+                "riskId": 11,
+                "riskName": "Projects are not delivered on time and do not provide value for money"
+              },
+              {
+                "riskId": 12,
+                "riskName": "Resources dedicated to Internal and External projects are not adequately planned"
+              },
+              {
+                "riskId": 13,
+                "riskName": "Bandwidth between main office and all other locations is insufficient for business operations"
+              },
+              {
+                "riskId": 14,
+                "riskName": "Network infrastructure is not properly maintained or documented"
+              },
+              {
+                "riskId": 15,
+                "riskName": "Failure to maintain core systems at disaster recovery site"
+              },
+              {
+                "riskId": 16,
+                "riskName": "Failure to safeguard confidential client or customer information"
+              },
+              {
+                "riskId": 17,
+                "riskName": "IT Policy on acceptable computer usage is not communicated to staff "
+              },
+              {
+                "riskId": 18,
+                "riskName": "Failure to maintain firewall and other security measures to prevent virus or hacking attacks"
+              },
+              {
+                "riskId": 19,
+                "riskName": "Failure to monitor system performance and provide early warning indicators of problems"
+              },
+              {
+                "riskId": 68,
+                "riskName": "Firewalls and other security measures are insufficient to protect the bank from external IT threats"
+              }
+            ]
+          }
+        }
+      },
+      "78": {
+        "folderId": 78,
+        "folderName": "Risk Management",
+        "children": {
+          "79": {
+            "folderId": 79,
+            "folderName": "Market Risk",
+            "risks": [
+              { "riskId": 32, "riskName": "Failure to identify model errors" },
+              {
+                "riskId": 33,
+                "riskName": "Failure to monitor and report on deal ticket errors"
+              },
+              { "riskId": 34, "riskName": "Verification of risk limits" }
+            ]
+          },
+          "80": {
+            "folderId": 80,
+            "folderName": "Credit Risk",
+            "risks": [
+              { "riskId": 20, "riskName": "Inadequate evaluation of proposal" },
+              {
+                "riskId": 21,
+                "riskName": "Inadequate validation of documentation"
+              },
+              {
+                "riskId": 22,
+                "riskName": "Lack of or inadequate credit risk scoring models"
+              },
+              {
+                "riskId": 23,
+                "riskName": "Unauthorized approval of the proposal"
+              },
+              {
+                "riskId": 24,
+                "riskName": "Failure to monitor key credit risk parameters (expiry dates, undrawn amounts, collateral etc..)"
+              },
+              { "riskId": 25, "riskName": "Failure to monitor recoveries" },
+              {
+                "riskId": 26,
+                "riskName": "Failure to monitor repayment status"
+              },
+              {
+                "riskId": 27,
+                "riskName": "Failure to periodically validate the documents"
+              },
+              {
+                "riskId": 28,
+                "riskName": "Failure to regularly monitor concentration limits"
+              }
+            ]
+          },
+          "81": {
+            "folderId": 81,
+            "folderName": "Private Equity",
+            "risks": [
+              {
+                "riskId": 29,
+                "riskName": "Failure to collect and monitor loss events"
+              },
+              {
+                "riskId": 30,
+                "riskName": "Failure to implement a comprehensive RCSA program"
+              },
+              {
+                "riskId": 31,
+                "riskName": "Inappropriate testing of processes and control environment"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "5": {
+    "cabinetId": 5,
+    "cabinetName": "Commercial Banking Europe",
+    "children": {
+      "12": {
+        "folderId": 12,
+        "folderName": "Information Security",
+        "children": {
+          "19": {
+            "folderId": 19,
+            "folderName": "Central Europe",
+            "risks": [{ "riskId": 58, "riskName": "Unauthorised trading" }]
+          },
+          "20": {
+            "folderId": 20,
+            "folderName": "Italy",
+            "risks": [
+              { "riskId": 85, "riskName": "Activated card intercepted xxxx" }
+            ]
+          }
+        }
+      },
+      "13": {
+        "folderId": 13,
+        "folderName": "Region North",
+        "children": {
+          "21": {
+            "folderId": 21,
+            "folderName": "Belgium",
+            "risks": [
+              {
+                "riskId": 1,
+                "riskName": "Inadequate disclosure of information (including terms and conditions)"
+              },
+              {
+                "riskId": 2,
+                "riskName": "Failure to comply with client instructions"
+              },
+              {
+                "riskId": 3,
+                "riskName": "Failure to conduct transaction in a timely manner"
+              },
+              {
+                "riskId": 4,
+                "riskName": "Bandwidth between main office and all other locations is insufficient for business operations"
+              },
+              {
+                "riskId": 5,
+                "riskName": "Network infrastructure is not properly maintained or documented"
+              },
+              {
+                "riskId": 6,
+                "riskName": "Lack of limit monitoring and reporting mechanism and issue potential breach alerts to all concerned departments"
+              },
+              {
+                "riskId": 7,
+                "riskName": "Poor quality of management information system and reporting"
+              },
+              {
+                "riskId": 8,
+                "riskName": "Failure to send regulatory reports timely"
+              },
+              { "riskId": 55, "riskName": "Aggressive Sale" }
+            ]
+          },
+          "22": {
+            "folderId": 22,
+            "folderName": "Netherlands",
+            "risks": [
+              {
+                "riskId": 57,
+                "riskName": "Failure to identify process/control breaches"
+              },
+              { "riskId": 93, "riskName": "Benefit Fraud" }
+            ]
+          },
+          "23": {
+            "folderId": 23,
+            "folderName": "Scandinavia",
+            "risks": [
+              {
+                "riskId": 179,
+                "riskName": "Electronic transactions file modified  "
+              }
+            ]
+          }
+        }
+      },
+      "14": {
+        "folderId": 14,
+        "folderName": "Region South",
+        "children": {
+          "24": {
+            "folderId": 24,
+            "folderName": "France",
+            "risks": [
+              {
+                "riskId": 177,
+                "riskName": "Activated card intercepted before it reaches the customer"
+              }
+            ]
+          }
+        }
+      },
+      "15": {
+        "folderId": 15,
+        "folderName": "Germany",
+        "children": {
+          "62": {
+            "folderId": 62,
+            "folderName": "Hamburg",
+            "risks": [
+              {
+                "riskId": 59,
+                "riskName": "Failure to manage the funding requirements (both cash and fx)"
+              }
+            ]
+          }
+        }
+      },
+      "16": {
+        "folderId": 16,
+        "folderName": "Russia",
+        "children": {
+          "60": {
+            "folderId": 60,
+            "folderName": "Moscow",
+            "risks": [
+              {
+                "riskId": 56,
+                "riskName": "Failure to perform timely Asset Liability Management"
+              },
+              { "riskId": 88, "riskName": "Benefit Fraud" }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "13": {
+    "cabinetId": 13,
+    "cabinetName": "Region North",
+    "children": {
+      "23": {
+        "folderId": 23,
+        "folderName": "Scandinavia",
+        "children": {
+          "86": {
+            "folderId": 86,
+            "folderName": "IT",
+            "risks": [
+              {
+                "riskId": 75,
+                "riskName": "Bandwidth between main office and all other locations is insufficient for business operations"
+              },
+              {
+                "riskId": 76,
+                "riskName": "ICT Room does not meet required standards"
+              },
+              {
+                "riskId": 77,
+                "riskName": "Network infrastructure is not properly maintained or documented"
+              }
+            ]
+          },
+          "87": {
+            "folderId": 87,
+            "folderName": "Compliance",
+            "risks": [
+              {
+                "riskId": 71,
+                "riskName": "Failure to send regulatory reports timely"
+              },
+              {
+                "riskId": 72,
+                "riskName": "Human resource policies are not complete which may create excessive legal or regulatory risks"
+              },
+              {
+                "riskId": 73,
+                "riskName": "Failure to comply with local data protection legislation"
+              },
+              {
+                "riskId": 74,
+                "riskName": "Impact of local legislation has not been incorporated into operating procedures"
+              }
+            ]
+          },
+          "88": {
+            "folderId": 88,
+            "folderName": "Operations",
+            "risks": [
+              { "riskId": 78, "riskName": "Aggressive Sale" },
+              {
+                "riskId": 79,
+                "riskName": "Poor documentation and legal covenants"
+              },
+              {
+                "riskId": 80,
+                "riskName": "Failure to collect the due amounts from customers"
+              },
+              {
+                "riskId": 81,
+                "riskName": "Poor customer management (like long queues, no sign boards, etc.,)"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "18": {
+    "cabinetId": 18,
+    "cabinetName": "Compliance",
+    "children": {
+      "89": {
+        "folderId": 89,
+        "folderName": "Financial Crime Control",
+        "children": {
+          "91": {
+            "folderId": 91,
+            "folderName": "AML Management",
+            "risks": [
+              {
+                "riskId": 148,
+                "riskName": "Internal controls are not tested or review effectively\r\n"
+              },
+              {
+                "riskId": 149,
+                "riskName": "Policy & Procedures aren't available or up to date\r\n"
+              },
+              {
+                "riskId": 150,
+                "riskName": "The Structure of the Management team and its oversight and governance of AML is not appropriate\r\n"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "93": {
+    "cabinetId": 93,
+    "cabinetName": "Investment Banking",
+    "children": {
+      "17": {
+        "folderId": 17,
+        "folderName": "Branch Network",
+        "children": {
+          "56": {
+            "folderId": 56,
+            "folderName": "UK",
+            "risks": [
+              {
+                "riskId": 62,
+                "riskName": "Lack of rigorous vendor selection process"
+              }
+            ]
+          },
+          "57": {
+            "folderId": 57,
+            "folderName": "Small Firm Services",
+            "risks": [
+              {
+                "riskId": 124,
+                "riskName": "Failure to complete full customer identification and due diligence\r\n"
+              },
+              {
+                "riskId": 125,
+                "riskName": "Failure to complete enhanced customer identification and due diligence for high risk customers\r\n"
+              },
+              {
+                "riskId": 126,
+                "riskName": "Infrastructure and processes for AML monitoring are not effective\r\n"
+              },
+              {
+                "riskId": 127,
+                "riskName": "Reporting of currency and monetary instrument transactions, wire transfers, and matches to governmental lists is effective\r\n"
+              },
+              {
+                "riskId": 128,
+                "riskName": "Identification and reporting of suspicious activity is ineffective\r\n"
+              },
+              {
+                "riskId": 129,
+                "riskName": "Existing training programs for business and Compliance personnel are not effective\r\n"
+              },
+              {
+                "riskId": 130,
+                "riskName": "Oversight of AML technology and associated vendors is not adequate\r\n"
+              }
+            ]
+          },
+          "73": {
+            "folderId": 73,
+            "folderName": "Scotland",
+            "risks": [{ "riskId": 176, "riskName": "Conduct Risk" }]
+          }
+        }
+      }
+    }
+  }
+}
