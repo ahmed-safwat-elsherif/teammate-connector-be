@@ -46,11 +46,28 @@ export const createTMCabinet = (title) =>
     groups: [],
   });
 
+export const updateTMCabinet = (id, title) =>
+  axiosTM.patch(
+    `/Cabinets/${id}`,
+    [
+      {
+        path: "/title",
+        op: "Replace",
+        value: title,
+      },
+    ],
+    { params: { objectTypeId: CABINET_OBJECT_TYPE_ID } }
+  );
+
 export const storeCabinet = async (oneSumXId, title) => {
   try {
-    const cabinet = await createTMCabinet(title);
-    console.log({ oneSumXId, cabinet });
-    return await Cabinet.create({ id: cabinet.id, oneSumXId, title });
+    const cabinet = await Cabinet.findOne({ where: { oneSumXId } });
+
+    if (cabinet) {
+      console.log({ oneSumXId, cabinet });
+      const newCabinet = await createTMCabinet(title).then((res) => res.data);
+      return await Cabinet.create({ id: newCabinet.id, oneSumXId, title });
+    }
   } catch (error) {
     console.dir(error);
     throw new Error(

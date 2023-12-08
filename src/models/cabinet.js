@@ -11,7 +11,7 @@ const Cabinet = sequelize.define(
     },
     oneSumXId: {
       type: DataTypes.INTEGER,
-      unique: true,
+      allowNull: false,
     },
     title: {
       type: DataTypes.STRING,
