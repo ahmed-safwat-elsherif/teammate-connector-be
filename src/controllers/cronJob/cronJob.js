@@ -1,4 +1,4 @@
-import cronJob from "../utils/cronJob.js";
+import cronJob from "../../utils/cronJob.js";
 
 /**
  *

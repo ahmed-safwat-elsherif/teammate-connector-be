@@ -46,6 +46,11 @@ export const createTMCabinet = (title) =>
     groups: [],
   });
 
+export const getTMCabinet = (cabinetId) =>
+  axiosTM.get(`/Cabinets/${cabinetId}`, {
+    params: { objectTypeId: CABINET_OBJECT_TYPE_ID },
+  });
+
 export const updateTMCabinet = (id, title) =>
   axiosTM.patch(
     `/Cabinets/${id}`,
@@ -58,6 +63,13 @@ export const updateTMCabinet = (id, title) =>
     ],
     { params: { objectTypeId: CABINET_OBJECT_TYPE_ID } }
   );
+
+export const removeTMCabinet = (id) =>
+  axiosTM.delete(`/Cabinets/${id}`, {
+    params: {
+      objectTypeId: CABINET_OBJECT_TYPE_ID,
+    },
+  });
 
 export const storeCabinet = async (oneSumXId, title) => {
   try {

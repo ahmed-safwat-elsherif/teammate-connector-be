@@ -2,8 +2,8 @@ import { DataTypes } from "sequelize";
 import colors from "colors";
 import sequelize from "../db/teammate.db.js";
 
-const Risk = sequelize.define(
-  "Risk",
+const Folder = sequelize.define(
+  "Folder",
   {
     id: {
       primaryKey: true,
@@ -26,8 +26,8 @@ const Risk = sequelize.define(
     timestamps: true,
   }
 );
-Risk.sync({ alter: true }).then(() => {
-  console.log(colors.green("✅ Risk table is created/altered successfully"));
+Folder.sync({ alter: true }).then(() => {
+  console.log(colors.green("✅ Folder table is created/altered successfully"));
 });
 
-export default Risk;
+export default Folder;
