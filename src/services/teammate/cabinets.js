@@ -81,7 +81,6 @@ export const storeCabinet = async (oneSumXId, title) => {
       return await Cabinet.create({ id: newCabinet.id, oneSumXId, title });
     }
   } catch (error) {
-    console.dir(error);
     throw new Error(
       `Couldn't store cabinet of info: id=${id}, oneSumXId = ${oneSumXId}`
     );

@@ -29,15 +29,16 @@ where r.DELETED_FLAG='N'
 
 /**
  * @returns {{
- * cabinets: [string, Cabinet][];
- * folders: [string, Folder][];
- * risks: [string, Risk][];
+ * cabinets: Cabinet[];
+ * folders:Folder[];
+ * risks: Risk[];
+ * levels:number;
  * }}
  */
 const getOneSumXData = async () => {
   try {
     const [rows] = await sequelize.query(query);
-    return structOneSumData2(rows);
+    return structOneSumData(rows);
   } catch (error) {
     throw new Error("Couldn't get 'One Sum X' risks");
   }
@@ -45,161 +46,84 @@ const getOneSumXData = async () => {
 
 export default getOneSumXData;
 
-/**
- *
- * @param {OneSumXRisk[]} data
- */
-function structOneSumData(data) {
-  const out = {};
-  data.forEach((row) => {
-    const cabinet = out[row.orgLevel1Id];
-    if (cabinet) {
-      const folderLevel1 = cabinet.children[row.orgLevel2Id];
-      if (folderLevel1) {
-        const folderLevel2 = folderLevel1.children[row.orgLevel3Id];
-        if (folderLevel2) {
-          folderLevel2.risks.push({
-            riskId: row.riskId,
-            riskName: row.riskName,
-          });
-        } else {
-          folderLevel1.children[row.orgLevel3Id] = {
-            folderId: row.orgLevel3Id,
-            folderName: row.orgLevel3Name,
-            risks: [
-              {
-                riskId: row.riskId,
-                riskName: row.riskName,
-              },
-            ],
-          };
-        }
-      } else {
-        cabinet.children[row.orgLevel2Id] = {
-          folderId: row.orgLevel2Id,
-          folderName: row.orgLevel2Name,
-          children: {
-            [row.orgLevel3Id]: {
-              folderId: row.orgLevel3Id,
-              folderName: row.orgLevel3Name,
-              risks: [
-                {
-                  riskId: row.riskId,
-                  riskName: row.riskName,
-                },
-              ],
-            },
-          },
-        };
-      }
-    } else {
-      out[row.orgLevel1Id] = {
-        cabinetId: row.orgLevel1Id,
-        cabinetName: row.orgLevel1Name,
-        children: {
-          [row.orgLevel2Id]: {
-            folderId: row.orgLevel2Id,
-            folderName: row.orgLevel2Name,
-            children: {
-              [row.orgLevel3Id]: {
-                folderId: row.orgLevel3Id,
-                folderName: row.orgLevel3Name,
-                risks: [
-                  {
-                    riskId: row.riskId,
-                    riskName: row.riskName,
-                  },
-                ],
-              },
-            },
-          },
-        },
-      };
-    }
-  });
-  return out;
-}
-
+/* ------------------ Helpers --------------------
 /**
  *
  * @param {OneSumXRisk[]} rows
  */
-function structOneSumData2(rows) {
-  const cabinets = new Map();
-  const folders = new Map();
+function structOneSumData(rows) {
+  const tree = new Map();
   const risks = new Map();
   rows.forEach((row) => {
-    const {
-      orgLevel1Id: cabinetId,
-      orgLevel1Name: cabinetTitle,
-      orgLevel2Id: folderLvl1Id,
-      orgLevel2Name: folderLvl1Title,
-      orgLevel3Id: folderLvl2Id,
-      orgLevel3Name: folderLvl2Title,
-      riskId,
-      riskName,
-    } = row;
-    // Cabinets
-    if (!cabinets.has(cabinetId)) {
-      cabinets.set(cabinetId, { id: cabinetId, title: cabinetTitle });
-    }
-    // Level 1
-    if (!folders.has(folderLvl1Id)) {
-      folders.set(folderLvl1Id, {
-        id: folderLvl1Id,
-        title: folderLvl1Title,
-        parentId: cabinetId,
+    if (!tree.has(row.orgLevel1Id)) {
+      tree.set(row.orgLevel1Id, {
+        parentId: null,
+        id: row.orgLevel1Id,
+        title: row.orgLevel1Name,
       });
     }
-    // Level 2
-    if (!folders.has(folderLvl2Id)) {
-      folders.set(folderLvl2Id, {
-        id: folderLvl2Id,
-        title: folderLvl2Title,
-        parentId: folderLvl1Id,
-        parentIsFolder: true,
+
+    if (!tree.has(row.orgLevel2Id)) {
+      tree.set(row.orgLevel2Id, {
+        parentId: row.orgLevel1Id,
+        id: row.orgLevel2Id,
+        title: row.orgLevel2Name,
       });
+    } else {
+      tree.get(row.orgLevel2Id).parentId = row.orgLevel1Id;
     }
+
+    if (!tree.has(row.orgLevel3Id)) {
+      tree.set(row.orgLevel3Id, {
+        parentId: row.orgLevel2Id,
+        id: row.orgLevel3Id,
+        title: row.orgLevel3Name,
+      });
+    } else {
+      tree.get(row.orgLevel3Id).parentId = row.orgLevel2Id;
+    }
+
+    // Calculate the
+
     // Risks
-    if (!risks.has(riskId)) {
-      risks.set(riskId, {
-        id: riskId,
-        title: riskName,
-        parentId: folderLvl2Id,
+    if (!risks.has(row.riskId)) {
+      risks.set(row.riskId, {
+        id: row.riskId,
+        title: row.riskName,
+        parentId: row.orgLevel3Id,
       });
     }
   });
-  return { cabinets: [...cabinets], folders: [...folders], risks: [...risks] };
+
+  const nodes = [...tree].map(([, node]) => node);
+
+  nodes.forEach((node) => {
+    if (!node.parentId) {
+      assignLevel(nodes, node, 0);
+    }
+  });
+  const levels = Math.max(...nodes.map((node) => node.level));
+  const cabinets = nodes.filter((node) => !node.parentId);
+  const folders = nodes.filter((node) => node.parentId || node.parentId === 0);
+  return {
+    cabinets,
+    folders,
+    levels,
+    risks: [...risks].map(([, risk]) => risk),
+  };
+}
+
+function assignLevel(nodes, node, level = 0) {
+  node.level = level;
+  const children = nodes.filter((item) => item.parentId === node.id);
+  children.forEach((child) => {
+    assignLevel(nodes, child, level + 1);
+  });
 }
 
 // ---------------- JSDoc ------------------
 
 /**
- * @typedef { Promise<{
- * [cabinet:string]:{
- *  cabinetId:number,
- *  cabinetName:string,
- *  children:{
- *   [folderLevel1:string]:{
- *       folderId:number,
- *       folderName:string,
- *       children:{
- *          [folderLevel2:string]:{
- *               folderId:number,
- *               folderName:string,
- *               children:{
- *                  [folderLevel3:string]:{
- *                      folderId:number,
- *                      folderName:string,
- *                      risks:{riskId:number, riskName:string}[]
- *                  }
- *               }
- *          }
- *       }
- *   }
- *  }
- * }
- * }>} StructuredRisks
  *
  * @typedef {{
  * orgLevel1Id:number,
@@ -212,7 +136,7 @@ function structOneSumData2(rows) {
  * riskName:string
  * }} OneSumXRisk
  *
- * @typedef { {id:number, title:string} } Cabinet
- * @typedef { {id:number, title:string, parentId:number,parentIsFolder?:boolean} } Folder
+ * @typedef { {id:number, title:string, level:number} } Cabinet
+ * @typedef { {id:number, title:string, parentId:number, level:number } } Folder
  * @typedef { {id:number, title:string, parentId:number} } Risk
  */
