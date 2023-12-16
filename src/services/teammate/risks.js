@@ -7,14 +7,15 @@ export const getTeammateRisks = () =>
 export const getTMRisk = (riskId) => axiosTM.get(`/Risks/${riskId}`);
 
 export const createTMRisk = (title, parentFolderId) =>
-  axiosTM.post("/Risk", {
+  axiosTM.post("/Risks", {
     parentFolderId,
     title,
   });
 
-export const removeTMRisk = (riskId) => axiosTM.delete(`/Risk/${riskId}`);
+export const removeTMRisk = (riskId) => axiosTM.delete(`/Risks/${riskId}`);
+
 export const updateTMRisk = (riskId, title) =>
-  axiosTM.patch(`/Risk/${riskId}`, [
+  axiosTM.patch(`/Risks/${riskId}`, [
     {
       path: "/title",
       op: "Replace",
