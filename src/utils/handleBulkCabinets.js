@@ -1,4 +1,4 @@
-import Cabinet from "../models/cabinet.js";
+import Cabinet from "../models/Cabinet.js";
 import {
   createTMCabinet,
   getTMCabinet,
