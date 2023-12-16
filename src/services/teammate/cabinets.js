@@ -1,4 +1,4 @@
-import Cabinet from "../../models/cabinet.js";
+import Cabinet from "../../models/Cabinet.js";
 import axiosTM from "../axios/teammate.js";
 
 const MAX_CABINET_COUNT = 1000;

@@ -1,11 +1,13 @@
 import colors from "colors";
-import Risk from "../models/risk.js";
+import Risk from "../models/Risk.js";
 import {
   createTMRisk,
   getTMRisk,
   removeTMRisk,
   updateTMRisk,
 } from "../services/teammate/risks.js";
+import RiskFolder from "../models/RiskFolder.js";
+import asyncHolder from "./asyncHolder.js";
 
 const MAX_RISKS_COUNT = 1000;
 const BATCH_COUNT = 5;
@@ -25,6 +27,7 @@ export default async function handleBulkRisks(risks) {
     );
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    await asyncHolder(4000);
     await Promise.all(batches.map((risk) => handleRisk(risk)));
   }
 }
@@ -38,7 +41,7 @@ async function handleRisk(risk) {
   let riskInSystem = await Risk.findOne({ where: { oneSumXId } });
   let parentInfo = null;
   let riskInTM = null;
-  parentInfo = await Folder.findOne({
+  parentInfo = await RiskFolder.findOne({
     where: { oneSumXId: oneSumXParentId },
   });
   if (!riskInSystem) {

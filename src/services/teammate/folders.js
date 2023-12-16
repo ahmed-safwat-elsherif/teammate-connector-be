@@ -74,3 +74,16 @@ export const removeTMFolder = (id, folderType = FOLDER_TYPE_RISK) =>
           : CONTROL_FOLDER_OBJECT_TYPE_ID,
     },
   });
+
+export const linkControlsToOneRisk = (riskId, controlIds) => {
+  axiosTM.patch(`/Risks/${riskId}`, [
+    {
+      path: "/links",
+      op: "Replace",
+      value: controlIds.map((controlId) => ({
+        id: controlId,
+        typeId: CONTROL_FOLDER_OBJECT_TYPE_ID,
+      })),
+    },
+  ]);
+};

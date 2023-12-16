@@ -1,16 +1,18 @@
-import Cabinet from "../models/cabinet.js";
+import Cabinet from "../models/Cabinet.js";
 import {
   createTMCabinet,
   getTMCabinet,
   removeTMCabinet,
   updateTMCabinet,
 } from "../services/teammate/cabinets.js";
+import asyncHolder from "./asyncHolder.js";
 
 /**
  *
  * @param {import("../services/oneSumX/getOneSumXData.js").Cabinet[]} cabinets
  */
 export default async function handleBulkCabinets(cabinets) {
+  await asyncHolder(4000);
   await Promise.all(cabinets.map((cabinet) => handleCabinet(cabinet)));
 }
 

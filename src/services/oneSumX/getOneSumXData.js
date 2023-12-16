@@ -139,4 +139,5 @@ function assignLevel(nodes, node, level = 0) {
  * @typedef { {id:number, title:string, level:number} } Cabinet
  * @typedef { {id:number, title:string, parentId:number, level:number } } Folder
  * @typedef { {id:number, title:string, parentId:number} } Risk
+ * @typedef { {id:number, title:string, parentId:number} } Control
  */
