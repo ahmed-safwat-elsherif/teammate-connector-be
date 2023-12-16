@@ -1,10 +1,4 @@
 import colors from "colors";
-import {
-  createTMRisk,
-  getTMRisk,
-  removeTMRisk,
-  updateTMRisk,
-} from "../services/teammate/risks.js";
 import ControlFolder from "../models/ControlFolder.js";
 import Control from "../models/Control.js";
 import {
@@ -13,11 +7,12 @@ import {
   removeTMControl,
   updateTMControl,
 } from "../services/teammate/controls.js";
+import asyncHolder from "./asyncHolder.js";
 
 const MAX_CONTROLS_COUNT = 1000;
 const BATCH_COUNT = 5;
 /**
- * @param {import("../services/oneSumX/getOneSumXData.js").Control[]} controls
+ * @param {import("../services/oneSumX/getRiskToControls.js").Control[]} controls
  */
 export default async function handleBulkControls(controls) {
   const controlsCount = controls.length;
@@ -33,12 +28,13 @@ export default async function handleBulkControls(controls) {
     );
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    await asyncHolder(4000);
     await Promise.all(batches.map((control) => handleControl(control)));
   }
 }
 
 /**
- * @param {import("../services/oneSumX/getOneSumXData.js").Control} control
+ * @param {import("../services/oneSumX/getRiskToControls.js").Control} control
  */
 async function handleControl(control) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = control;

@@ -7,6 +7,7 @@ import {
   updateTMRisk,
 } from "../services/teammate/risks.js";
 import RiskFolder from "../models/RiskFolder.js";
+import asyncHolder from "./asyncHolder.js";
 
 const MAX_RISKS_COUNT = 1000;
 const BATCH_COUNT = 5;
@@ -26,6 +27,7 @@ export default async function handleBulkRisks(risks) {
     );
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    await asyncHolder(4000);
     await Promise.all(batches.map((risk) => handleRisk(risk)));
   }
 }

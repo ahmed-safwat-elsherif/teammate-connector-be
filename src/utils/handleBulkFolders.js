@@ -9,6 +9,7 @@ import {
   updateTMFolder,
 } from "../services/teammate/folders.js";
 import ControlFolder from "../models/ControlFolder.js";
+import asyncHolder from "./asyncHolder.js";
 
 const MAX_FOLDERS_COUNT = 1000;
 const BATCH_COUNT = 5;
@@ -58,6 +59,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
     );
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    await asyncHolder(4000);
     await Promise.all(
       batches.map((folder) => handleFolder(folder, parentIsFolder, folderType))
     );
