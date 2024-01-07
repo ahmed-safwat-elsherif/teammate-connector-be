@@ -54,6 +54,11 @@ async function main() {
 }
 
 async function syncFolders(folders, levels, folderType) {
+  colors.bgCyan.white(
+    `\n------------- FOLDER TYPE: ${
+      folderType === FOLDER_TYPE_RISK ? "RISK" : "CONTROL"
+    } -------------\n`
+  );
   for (let level = 1; level <= levels; level++) {
     console.log(
       colors.bgMagenta.white(`------------- LEVEL ${level} -------------`)

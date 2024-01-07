@@ -1,4 +1,4 @@
-import { linkControlsToOneRisk } from "../services/teammate/folders";
+import { linkControlsToOneRisk } from "../services/teammate/folders.js";
 
 /**
  * @param {{riskId:number, controls:{controlId:number, controlDesc:string}[]}[]} risksToControls

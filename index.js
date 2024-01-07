@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger);
 
+app.use("/", (_, res) => {
+  res.send("<h1>APIs are working! ✅</h1>");
+});
 // Routes
 app.use("/sync", cronJobRoutes);
 app.use("/auth", userRoutes);

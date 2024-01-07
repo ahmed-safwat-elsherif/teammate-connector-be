@@ -1,5 +1,3 @@
-import axiosOData from "../axios/teammateOData.js";
-import structureTMFolders from "../../utils/structureTMFolders.js";
 import axiosTM from "../axios/teammate.js";
 
 const RISK_FOLDER_OBJECT_TYPE_ID = 24;
@@ -9,11 +7,6 @@ const CABINET_OBJECT_TYPE_ID = 52;
 
 export const FOLDER_TYPE_RISK = "RISK";
 export const FOLDER_TYPE_CONTROL = "CONTROL";
-
-export const getTeammateFolders = () =>
-  axiosOData
-    .get("/Folders")
-    .then((res) => structureTMFolders(res.data.value, null));
 
 export const createTMFolder = ({
   title,

@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize";
-import { dbPass, dbPort, dbUsername } from "../config/index.js";
+import { dbTMOrigin, dbTMUser, dbTMPass, dbTMPort } from "../config/index.js";
 
-const sequelize = new Sequelize("Teammate", dbUsername, dbPass, {
-  host: "localhost",
+const sequelize = new Sequelize("Teammate", dbTMUser, dbTMPass, {
+  host: dbTMOrigin,
   dialect: "mssql",
-  port: dbPort,
+  port: dbTMPort,
   logging: false,
 });
 
