@@ -1,4 +1,4 @@
-import sequelize from "../../db/oneSumX.db.js";
+import sequelize from '../../db/oneSumX.db.js';
 
 const query = `
 select 
@@ -25,8 +25,8 @@ select
 
 /**
  * @returns {{
- *  controls:Control[],
- *  risksToControls:{riskId:number, controls:{controlId:number, controlDesc:string}[]}[]
+ *   controls: Control[];
+ *   risksToControls: { riskId: number; controls: { controlId: number; controlDesc: string }[] }[];
  * }}
  */
 
@@ -35,14 +35,11 @@ const getRiskToControls = async () => {
     const [rows] = await sequelize.query(query);
     let controlsMapper = new Map();
     let riskToControlsMapper = new Map();
-    rows.forEach((row) => {
+    rows.forEach(row => {
       const { riskId, controlId, controlDesc } = row;
-      if (!controls.has(controlId))
-        controls.set(controlId, { controlId, controlDesc });
+      if (!controlsMapper.has(controlId)) controlsMapper.set(controlId, { controlId, controlDesc });
       if (riskToControlsMapper.has(riskId)) {
-        riskToControlsMapper
-          .get(riskId)
-          .controls.push({ controlId, controlDesc });
+        riskToControlsMapper.get(riskId).controls.push({ controlId, controlDesc });
       } else {
         riskToControlsMapper.set(riskId, {
           riskId,
@@ -57,9 +54,7 @@ const getRiskToControls = async () => {
     });
     return {
       controls: [...controlsMapper].map(([, control]) => control),
-      risksToControls: [...riskToControlsMapper].map(
-        ([, riskToControls]) => riskToControls
-      ),
+      risksToControls: [...riskToControlsMapper].map(([, riskToControls]) => riskToControls),
     };
   } catch (error) {
     throw new Error("Couldn't get 'One Sum X' controls");
@@ -70,6 +65,4 @@ export default getRiskToControls;
 
 // ---------------- JSDoc ------------------
 
-/**
- * @typedef { {id:number, title:string, parentId:number} } Control
- */
+/** @typedef {{ id: number; title: string; parentId: number }} Control */

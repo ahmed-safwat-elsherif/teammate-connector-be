@@ -1,4 +1,4 @@
-import sequelize from "../../db/oneSumX.db.js";
+import sequelize from '../../db/oneSumX.db.js';
 
 const query = `
 select 
@@ -29,17 +29,19 @@ where r.DELETED_FLAG='N'
 
 /**
  * @returns {{
- * cabinets: Cabinet[];
- * folders:Folder[];
- * risks: Risk[];
- * levels:number;
+ *   cabinets: Cabinet[];
+ *   folders: Folder[];
+ *   risks: Risk[];
+ *   levels: number;
  * }}
  */
 const getOneSumXData = async () => {
   try {
     const [rows] = await sequelize.query(query);
-    return structOneSumData(rows);
+    const formattedRows = structOneSumData(rows);
+    return formattedRows;
   } catch (error) {
+    console.dir({ error });
     throw new Error("Couldn't get 'One Sum X' risks");
   }
 };
@@ -54,7 +56,7 @@ export default getOneSumXData;
 function structOneSumData(rows) {
   const tree = new Map();
   const risks = new Map();
-  rows.forEach((row) => {
+  rows.forEach(row => {
     if (!tree.has(row.orgLevel1Id)) {
       tree.set(row.orgLevel1Id, {
         parentId: null,
@@ -97,14 +99,14 @@ function structOneSumData(rows) {
 
   const nodes = [...tree].map(([, node]) => node);
 
-  nodes.forEach((node) => {
+  nodes.forEach(node => {
     if (!node.parentId) {
       assignLevel(nodes, node, 0);
     }
   });
-  const levels = Math.max(...nodes.map((node) => node.level));
-  const cabinets = nodes.filter((node) => !node.parentId);
-  const folders = nodes.filter((node) => node.parentId || node.parentId === 0);
+  const levels = Math.max(...nodes.map(node => node.level));
+  const cabinets = nodes.filter(node => !node.parentId);
+  const folders = nodes.filter(node => node.parentId || node.parentId === 0);
   return {
     cabinets,
     folders,
@@ -115,8 +117,8 @@ function structOneSumData(rows) {
 
 function assignLevel(nodes, node, level = 0) {
   node.level = level;
-  const children = nodes.filter((item) => item.parentId === node.id);
-  children.forEach((child) => {
+  const children = nodes.filter(item => item.parentId === node.id);
+  children.forEach(child => {
     assignLevel(nodes, child, level + 1);
   });
 }
@@ -124,20 +126,23 @@ function assignLevel(nodes, node, level = 0) {
 // ---------------- JSDoc ------------------
 
 /**
- *
  * @typedef {{
- * orgLevel1Id:number,
- * orgLevel2Id:number,
- * orgLevel3Id:number,
- * orgLevel1Name:string,
- * orgLevel2Name:string,
- * orgLevel3Name:string,
- * riskId:number,
- * riskName:string
+ *   orgLevel1Id: number;
+ *   orgLevel2Id: number;
+ *   orgLevel3Id: number;
+ *   orgLevel1Name: string;
+ *   orgLevel2Name: string;
+ *   orgLevel3Name: string;
+ *   riskId: number;
+ *   riskName: string;
  * }} OneSumXRisk
  *
- * @typedef { {id:number, title:string, level:number} } Cabinet
- * @typedef { {id:number, title:string, parentId:number, level:number } } Folder
- * @typedef { {id:number, title:string, parentId:number} } Risk
- * @typedef { {id:number, title:string, parentId:number} } Control
+ *
+ * @typedef {{ id: number; title: string; level: number }} Cabinet
+ *
+ * @typedef {{ id: number; title: string; parentId: number; level: number }} Folder
+ *
+ * @typedef {{ id: number; title: string; parentId: number }} Risk
+ *
+ * @typedef {{ id: number; title: string; parentId: number }} Control
  */
