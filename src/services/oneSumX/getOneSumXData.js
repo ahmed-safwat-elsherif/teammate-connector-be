@@ -38,7 +38,7 @@ where r.DELETED_FLAG='N'
 const getOneSumXData = async () => {
   try {
     const [rows] = await sequelize.query(query);
-    const formattedRows = structOneSumData(rows);
+    const formattedRows = structOneSumData(rows.slice(0, 100));
     return formattedRows;
   } catch (error) {
     console.dir({ error });

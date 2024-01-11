@@ -1,9 +1,9 @@
-import { DataTypes } from "sequelize";
-import colors from "colors";
-import sequelize from "../db/teammate.db.js";
+import { DataTypes } from 'sequelize';
+import colors from 'colors';
+import sequelize from '../db/teammate.db.js';
 
 const User = sequelize.define(
-  "User",
+  'User',
   {
     id: {
       primaryKey: true,
@@ -29,7 +29,7 @@ const User = sequelize.define(
   }
 );
 User.sync({ alter: true }).then(() => {
-  console.log(colors.green("✅ Users table is created/altered successfully"));
+  console.log(colors.green('✅ Users table is created/altered successfully'));
 });
 
 export default User;

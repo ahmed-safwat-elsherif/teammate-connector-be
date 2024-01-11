@@ -7,7 +7,6 @@ export const jwtExpiration = 2 * 60; // 2min
 export const jwtRefreshExpiration = 1 * 60 * 60; // 1h
 export const teammateAuthToken = process.env.TM_AUTH_TOKEN;
 export const tmBaseUrl = process.env.TM_BASEURL;
-console.log({ teammateAuthToken, tmBaseUrl });
 // TM Database settings
 export const dbTMPort = process.env.DB_TM_PORT;
 export const dbTMOrigin = process.env.DB_TM_ORIGIN;

@@ -36,19 +36,14 @@ const getRiskToControls = async () => {
     let controlsMapper = new Map();
     let riskToControlsMapper = new Map();
     rows.forEach(row => {
-      const { riskId, controlId, controlDesc } = row;
-      if (!controlsMapper.has(controlId)) controlsMapper.set(controlId, { controlId, controlDesc });
+      const { riskId, controlId: id, controlDesc: title } = row;
+      if (!controlsMapper.has(id)) controlsMapper.set(id, { id, title });
       if (riskToControlsMapper.has(riskId)) {
-        riskToControlsMapper.get(riskId).controls.push({ controlId, controlDesc });
+        riskToControlsMapper.get(riskId).controls.push({ id, title });
       } else {
         riskToControlsMapper.set(riskId, {
           riskId,
-          controls: [
-            {
-              controlId,
-              controlDesc,
-            },
-          ],
+          controls: [{ id, title }],
         });
       }
     });
