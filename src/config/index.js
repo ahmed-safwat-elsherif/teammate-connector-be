@@ -14,6 +14,7 @@ export const dbTMUser = process.env.DB_TM_USER;
 export const dbTMPass = process.env.DB_TM_PASS;
 
 // OSX Database settings
+export const dbOSXName = process.env.DB_OSX_NAME;
 export const dbOSXPort = process.env.DB_OSX_PORT;
 export const dbOSXOrigin = process.env.DB_OSX_ORIGIN;
 export const dbOSXUser = process.env.DB_OSX_USER;

@@ -43,8 +43,14 @@ async function main() {
     console.log(colors.bgYellow.black('------------------\n'));
     await syncFolders(folders, levels, FOLDER_TYPE_CONTROL);
     // Risks:
+    console.log(colors.bgYellow.black('\n-----------'));
+    console.log(colors.bgYellow.black('-- Risks --'));
+    console.log(colors.bgYellow.black('-----------\n'));
     await handleBulkRisks(risks);
     // Controls
+    console.log(colors.bgYellow.black('\n-------------'));
+    console.log(colors.bgYellow.black('-- Controls --'));
+    console.log(colors.bgYellow.black('-------------\n'));
     await handleBulkControls(controls);
     // Connections
     await connectControlsToRisks(risksToControls);

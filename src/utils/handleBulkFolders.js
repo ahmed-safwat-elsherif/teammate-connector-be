@@ -160,5 +160,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
       [folderAttr]: folderInSystem.toJSON().id,
     });
   }
-  console.log(`✔️ Handled Folder (${folder.id} => ${folderInSystem?.id}) of LEVEL ${folder.level}`);
+  console.log(
+    `✔️ Handled Folder (osxID:${folder.id} => tmID:${folderInSystem?.id}) of LEVEL ${folder.level}`
+  );
 }

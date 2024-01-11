@@ -37,13 +37,14 @@ const getRiskToControls = async () => {
     let riskToControlsMapper = new Map();
     rows.forEach(row => {
       const { riskId, controlId: id, controlDesc: title } = row;
-      if (!controlsMapper.has(id)) controlsMapper.set(id, { id, title });
+      const ctrl = { id, title, riskId };
+      if (!controlsMapper.has(id)) controlsMapper.set(id, ctrl);
       if (riskToControlsMapper.has(riskId)) {
-        riskToControlsMapper.get(riskId).controls.push({ id, title });
+        riskToControlsMapper.get(riskId).controls.push(ctrl);
       } else {
         riskToControlsMapper.set(riskId, {
           riskId,
-          controls: [{ id, title }],
+          controls: [ctrl],
         });
       }
     });
@@ -60,4 +61,4 @@ export default getRiskToControls;
 
 // ---------------- JSDoc ------------------
 
-/** @typedef {{ id: number; title: string; parentId: number }} Control */
+/** @typedef {{ id: number; title: string; riskId: number }} Control */
