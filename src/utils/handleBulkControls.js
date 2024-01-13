@@ -21,6 +21,12 @@ export default async function handleBulkControls(controls) {
     (controlsCount < MAX_CONTROLS_COUNT ? controlsCount : MAX_CONTROLS_COUNT) / BATCH_COUNT
   );
   let batches = [];
+  /**
+   * Problem, current query doesn't provide a clue about the parent folder id! .. so the solution
+   * will be: What we have from the risks-to-controls query, is the riskIds, therefore we will
+   * extract from this riskids their accocciated parent ids. This will be acheived using the util
+   * "getControlFolderByRiskId"
+   */
   const controlFolderIdsMap = new Map();
   for (let index = 0; index < numOfBatches; index++) {
     batches = controls.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);

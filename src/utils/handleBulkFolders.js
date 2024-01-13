@@ -41,17 +41,23 @@ export default async function handleBulkFolders(folders, parentIsFolder, folderT
  * @param {'RISK' | 'CONTROL'} folderType
  */
 async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
+  /**
+   * Define "Batches": "Batch" is 5 requests (according to the global variable 'BATCH_COUNT'), each
+   * batch of folders will be executed according to a sleep interval of 4000 ms (4 seconds)
+   */
   const foldersCount = folders.length;
   const numOfBatches = Math.ceil(
     (foldersCount < MAX_FOLDERS_COUNT ? foldersCount : MAX_FOLDERS_COUNT) / BATCH_COUNT
   );
-  let batches = [];
+  let batchOfFolders = [];
   for (let index = 0; index < numOfBatches; index++) {
-    batches = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
+    batchOfFolders = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
-    await Promise.all(batches.map(folder => handleFolder(folder, parentIsFolder, folderType)));
+    await Promise.all(
+      batchOfFolders.map(folder => handleFolder(folder, parentIsFolder, folderType))
+    );
   }
 }
 
@@ -62,7 +68,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
  */
 async function handleFolder(folder, parentIsFolder, folderType) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = folder;
-  // Define selected models
+  // Define selected models (Risk or Control)
   const isRiskFolder = folderType === FOLDER_TYPE_RISK;
   const Folder = isRiskFolder ? RiskFolder : ControlFolder;
   const ParentModel = parentIsFolder ? Folder : Cabinet;
@@ -73,6 +79,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
   parentInfo = await ParentModel.findOne({
     where: { oneSumXId: oneSumXParentId },
   });
+
   if (!folderInSystem) {
     try {
       // Add the cabinet for both Sync System & Teammate databases

@@ -15,12 +15,15 @@ export default async function handleBulkCabinets(cabinets) {
 
 /** @param {import('../services/oneSumX/getOneSumXData.js').Cabinet} cabinet */
 async function handleCabinet(cabinet) {
+  // One Sum-X Cabinet
   const { id: oneSumXId, title } = cabinet;
+  // Cabinet in Helper system
   let cabinetInSystem = await Cabinet.findOne({ where: { oneSumXId } });
   let cabinetInTM = null;
+  // If Cabinet wasn't created before
   if (!cabinetInSystem) {
     try {
-      // Add the cabinet for both Sync System & Teammate databases
+      // Create the cabinet for both Sync System & Teammate databases
       cabinetInTM = await createTMCabinet(title).then(res => res.data);
       cabinetInSystem = await Cabinet.create({
         id: cabinetInTM.id,
@@ -39,8 +42,10 @@ async function handleCabinet(cabinet) {
       );
     }
   } else {
+    // .toJSON() just to elemenate noisy other properies from Model type. (You can ignore it for now!)
     const cabinetInSystemObj = cabinetInSystem.toJSON();
     try {
+      // Check if this cabinet in TM (source) is still there
       cabinetInTM = await getTMCabinet(cabinetInSystemObj.id)
         .then(res => res.data)
         .catch(err => {
@@ -49,10 +54,13 @@ async function handleCabinet(cabinet) {
           return null;
         });
       if (!cabinetInTM) {
+        // Recreate this Cabinet, considering that this cabinet [in TM (source)] is deleted (someone mistakenly remove it)
         cabinetInTM = await createTMCabinet(title).then(res => res.data);
       } else {
+        // Cabinet in TM (source) is updated with One sum-x title
         cabinetInTM = await updateTMCabinet(cabinetInSystemObj.id, title).then(res => res.data);
       }
+      // Update the helper system with One sum-x title + Teammate new ID
       cabinetInSystem.title = title;
       if (cabinetInTM) {
         cabinetInSystem.id = cabinetInTM.id;
