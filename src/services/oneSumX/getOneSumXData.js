@@ -38,14 +38,14 @@ where r.DELETED_FLAG='N'
 const getOneSumXData = async () => {
   try {
     const [rows] = await sequelize.query(query);
-    const formattedRows = structOneSumData(rows);
+    // TODO: unslice rows
+    const formattedRows = structOneSumData(rows.slice(0, 300));
     return formattedRows;
   } catch (error) {
     console.dir({ error });
     throw new Error("Couldn't get 'One Sum X' risks");
   }
 };
-
 export default getOneSumXData;
 
 /* ------------------ Helpers --------------------

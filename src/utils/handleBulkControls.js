@@ -37,9 +37,12 @@ export default async function handleBulkControls(controls) {
       batches.map(async control => {
         if (!controlFolderIdsMap.has(control.id)) {
           const controlFolder = await getControlFolderByRiskId(control.riskId);
-          controlFolderIdsMap.set(control.id, controlFolder.id);
+          if (controlFolder) controlFolderIdsMap.set(control.id, controlFolder.id);
         }
-        handleControl({ ...control, parentId: controlFolderIdsMap.get(control.id) });
+        const parentId = controlFolderIdsMap.get(control.id);
+        if (parentId) {
+          handleControl({ ...control, parentId });
+        }
       })
     );
   }
@@ -118,6 +121,7 @@ async function handleControl(control) {
 async function getControlFolderByRiskId(riskId) {
   console.log(`Get data by riskid: ${riskId}`);
   const risk = await Risk.findOne({ where: { oneSumXId: riskId } });
+  if (!risk) return;
   console.log(risk?.toJSON());
   const folderMap = await FolderMap.findOne({ where: { riskFolderId: risk?.parentId } });
   console.log('folderMap:');
