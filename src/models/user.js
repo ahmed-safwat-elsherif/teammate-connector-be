@@ -27,15 +27,16 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
     },
-    permission:{
-      type: DataTypes.ENUM('ADMIN', 'USER'),
-      defaultValue:'USER'
+    role:{
+      type: DataTypes.STRING,
+      allowNull:false
     }
   },
   {
     timestamps: true,
   }
 );
+
 User.sync({ alter: true }).then(() => {
   console.log(colors.green('✅ Users table is created/altered successfully'));
 });

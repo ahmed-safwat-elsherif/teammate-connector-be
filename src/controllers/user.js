@@ -6,6 +6,7 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwtUtils.js";
+import userRoles from "../utils/userRoles.js";
 
 /**
  *
@@ -24,6 +25,10 @@ export const register = async (req, res) => {
     res.status(400).json({ message: "User already exists" });
     return;
   }
+
+  if(!email){
+    res.status(400).json({message:"Email is not "})
+  }
   try {
     const salt = await bcrypt.genSalt(+saltRounds);
     const hashedPass = await bcrypt.hash(password, salt);
@@ -34,16 +39,17 @@ export const register = async (req, res) => {
       lastname,
       email,
       password: hashedPass,
+      role:userRoles.USER
     });
 
-    const {password ,...rest} = user.toJSON();
+    const {password:pass,...rest} = user.toJSON();
 
     res.json({
       message: "User is created",
       user: rest,
     });
   } catch (error) {
-    res.status(400).json({ message: "Couldn't be able to create the user" });
+    res.status(400).json({ message: "Couldn't create the user" });
   }
 };
 
@@ -112,7 +118,8 @@ export const refreshUserTokens = (req, res) => {
  * @returns
  */
 export const updateUser = async (req,res)=>{
-  const { username, firstname,lastname, email } = req.body;
+  const {  firstname,lastname, email } = req.body;
+  const {username} = req.user;
   try {
     const user = await User.findOne({
       where: {
@@ -125,12 +132,12 @@ export const updateUser = async (req,res)=>{
       return;
     }
 
-    const prevData = user.toJSON();
+    const {password:pass,...rest} = user.toJSON();
     
     await User.update({
-      firstname:firstname ?? prevData.firstname, 
-      lastname:lastname ?? prevData.lastname,
-      email:email ?? prevData.email,
+      firstname:firstname ?? rest.firstname, 
+      lastname:lastname ?? rest.lastname,
+      email:email ?? rest.email,
     }, {
       where:{username}
     });
@@ -150,7 +157,8 @@ export const updateUser = async (req,res)=>{
  * @returns
  */
 export const updatePassword = async (req,res)=>{
-  const { username, password, newPassword} = req.body;
+  const { password, newPassword} = req.body;
+  const {username} = req.user;
   try {
     const user = await User.findOne({
       where: {
