@@ -35,20 +35,17 @@ const getRiskToControls = async () => {
     const [rows] = await sequelize.query(query);
     let controlsMapper = new Map();
     let riskToControlsMapper = new Map();
+    // TODO: unslice rows
     rows.forEach(row => {
-      const { riskId, controlId, controlDesc } = row;
-      if (!controlsMapper.has(controlId)) controlsMapper.set(controlId, { controlId, controlDesc });
+      const { riskId, controlId: id, controlDesc: title } = row;
+      const ctrl = { id, title, riskId };
+      if (!controlsMapper.has(id)) controlsMapper.set(id, ctrl);
       if (riskToControlsMapper.has(riskId)) {
-        riskToControlsMapper.get(riskId).controls.push({ controlId, controlDesc });
+        riskToControlsMapper.get(riskId).controls.push(ctrl);
       } else {
         riskToControlsMapper.set(riskId, {
           riskId,
-          controls: [
-            {
-              controlId,
-              controlDesc,
-            },
-          ],
+          controls: [ctrl],
         });
       }
     });
@@ -65,4 +62,4 @@ export default getRiskToControls;
 
 // ---------------- JSDoc ------------------
 
-/** @typedef {{ id: number; title: string; parentId: number }} Control */
+/** @typedef {{ id: number; title: string; riskId: number }} Control */

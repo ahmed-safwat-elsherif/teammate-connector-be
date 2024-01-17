@@ -8,12 +8,20 @@ import { FOLDER_TYPE_CONTROL, FOLDER_TYPE_RISK } from '../services/teammate/fold
 import getRiskToControls from '../services/oneSumX/getRiskToControls.js';
 import { endSync, getSyncStatus, startSync } from './syncManager.js';
 import connectControlsToRisks from './connectControlsToRisks.js';
+import Risk from '../models/Risk.js';
+
+export const SyncStatus = {
+  Done:"Done",
+  Started:"Started",
+  InProgress:"InProgress",
+  Failed:"Failed"
+}
 
 export default async () => {
   const isSyncInProgress = getSyncStatus();
-  if (isSyncInProgress) return 'Syncronization is still in progress';
+  if (isSyncInProgress) return {message:'Syncronization is still in progress', syncStatus:SyncStatus.InProgress};
   main();
-  return 'Syncronization triggered';
+  return {message:'Syncronization triggered', syncStatus:SyncStatus.Started}
 };
 
 // ------- Handlers -------
@@ -21,6 +29,9 @@ export default async () => {
 async function main() {
   startSync();
   try {
+    const count=await Risk.count();
+    console.log(count);
+    // return
     const oneSumData = await getOneSumXData();
     const { controls, risksToControls } = await getRiskToControls();
     const { cabinets, folders, risks, levels } = oneSumData;
@@ -43,9 +54,15 @@ async function main() {
     console.log(colors.bgYellow.black('------------------\n'));
     await syncFolders(folders, levels, FOLDER_TYPE_CONTROL);
     // Risks:
-    await handleBulkRisks(risks);
+    console.log(colors.bgYellow.black('\n-----------'));
+    console.log(colors.bgYellow.black('-- Risks --'));
+    console.log(colors.bgYellow.black('-----------\n'));
+    await handleBulkRisks(risks); 
     // Controls
-    await handleBulkControls(controls);
+    console.log(colors.bgYellow.black('\n-------------'));
+    console.log(colors.bgYellow.black('-- Controls --'));
+    console.log(colors.bgYellow.black('-------------\n'));
+    await handleBulkControls(controls); 
     // Connections
     await connectControlsToRisks(risksToControls);
     await console.log('✅Syncronization done');

@@ -29,7 +29,7 @@ router.post('/settings', authenticate, setSettings);
  *       400:
  *         description: Syncronization process failed and stopped.
  */
-router.get('/run', startSync);
+router.post('/run',authenticate, startSync);
 /**
  * @openapi
  * /sync/tables/rows:
