@@ -10,6 +10,10 @@ const User = sequelize.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
+    email:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,6 +27,10 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
     },
+    permission:{
+      type: DataTypes.ENUM('ADMIN', 'USER'),
+      defaultValue:'USER'
+    }
   },
   {
     timestamps: true,

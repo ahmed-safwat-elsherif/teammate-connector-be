@@ -1,9 +1,13 @@
 import express from 'express';
-import { login, refreshUserTokens, register } from '../controllers/user.js';
+import { login, refreshUserTokens, register, updatePassword, updateUser } from '../controllers/user.js';
 
 const router = express.Router();
 
 router.post('/register', register);
+
+router.patch('/user', updateUser);
+
+router.patch('/password', updatePassword);
 
 router.post('/login', login);
 
