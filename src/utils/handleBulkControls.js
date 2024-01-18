@@ -1,6 +1,9 @@
 import colors from 'colors';
 import ControlFolder from '../models/ControlFolder.js';
 import Control from '../models/Control.js';
+import colors from 'colors';
+import ControlFolder from '../models/ControlFolder.js';
+import Control from '../models/Control.js';
 import {
   createTMControl,
   getTMControl,
@@ -13,6 +16,7 @@ import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 
 const BATCH_COUNT = 5;
+/** @param {import('../services/oneSumX/getRiskToControls.js').Control[]} controls */
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control[]} controls */
 export default async function handleBulkControls(controls) {
   const controlsCount = controls.length;
@@ -27,7 +31,16 @@ export default async function handleBulkControls(controls) {
    * "getControlFolderByRiskId"
    */
   const controlFolderIdsMap = new Map();
+  /**
+   * Problem, current query doesn't provide a clue about the parent folder id! .. so the solution
+   * will be: What we have from the risks-to-controls query, is the riskIds, therefore we will
+   * extract from this riskids their accocciated parent ids. This will be acheived using the util
+   * "getControlFolderByRiskId"
+   */
+  const controlFolderIdsMap = new Map();
   for (let index = 0; index < numOfBatches; index++) {
+    batches = controls.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
+    // Handle Control Folder
     batches = controls.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
     // Handle Control Folder
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
@@ -47,6 +60,7 @@ export default async function handleBulkControls(controls) {
   }
 }
 
+/** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 async function handleControl(control) {
   const { id: oneSumXId, title, parentId, riskId:riskOsxId } = control;
@@ -75,13 +89,17 @@ async function handleControl(control) {
         await removeTMControl(controlInTM.id);
       }
       console.dir(error);
+      console.dir(error);
       throw new Error(
+        `Couldn't create a Control ${controlInTM ? `of title (${controlInTM.title})` : ''}`
         `Couldn't create a Control ${controlInTM ? `of title (${controlInTM.title})` : ''}`
       );
     }
   } else {
     const controlInSystemObj = controlInSystem.toJSON();
     const { data, error } = await getTMControl(controlInSystemObj.id)
+      .then(res => ({ data: res.data }))
+      .catch(err => {
       .then(res => ({ data: res.data }))
       .catch(err => {
         if (err.response.status === 404) {
@@ -94,16 +112,20 @@ async function handleControl(control) {
       throw new Error(
         `Couldn't update a Control ${
           controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''
+          controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''
         }`
       );
     if (!controlInTM) {
       controlInTM = await createTMControl(title, parentInfo.id).then(res => res.data);
+      controlInTM = await createTMControl(title, parentInfo.id).then(res => res.data);
     } else {
       try {
+        controlInTM = await updateTMControl(controlInSystem.id, title).then(res => res.data);
         controlInTM = await updateTMControl(controlInSystem.id, title).then(res => res.data);
       } catch (error) {
         throw new Error(
           `Couldn't update a Control ${
+            controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''
             controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''
           }`
         );

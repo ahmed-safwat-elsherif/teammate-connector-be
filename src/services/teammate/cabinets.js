@@ -1,4 +1,4 @@
-import Cabinet from '../../models/Cabinet.js';
+import Cabinet from '../../models/cabinet.js';
 import axiosTM from '../axios/teammate.js';
 
 export const CABINET_OBJECT_TYPE_ID = 24;

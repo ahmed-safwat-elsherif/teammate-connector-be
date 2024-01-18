@@ -1,0 +1,19 @@
+version: '3'
+
+services:  
+  database_node:
+    image: 'mcr.microsoft.com/mssql/server'
+    user: root
+    network_mode: host
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'p@55word'
+    volumes:
+      - tmc_mssql_data:/var/opt/mssql/data
+      - tmc_mssql_log:/var/opt/mssql/log
+      - tmc_mssql_secrets:/var/opt/mssql/secrets
+
+volumes:
+  tmc_mssql_data:
+  tmc_mssql_log:
+  tmc_mssql_secrets:
