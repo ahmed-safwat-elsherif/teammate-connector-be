@@ -25,3 +25,4 @@ yarn-error.log*
 
 src/data/GRC_DEMO.bak
 src/data/GRC_DEMO.rar
+.pytest_cache/
