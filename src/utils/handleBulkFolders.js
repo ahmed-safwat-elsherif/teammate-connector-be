@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Cabinet from '../models/Cabinet.js';
+import Cabinet from '../models/cabinet.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 import {

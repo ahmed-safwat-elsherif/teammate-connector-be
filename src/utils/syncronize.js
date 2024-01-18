@@ -8,20 +8,22 @@ import { FOLDER_TYPE_CONTROL, FOLDER_TYPE_RISK } from '../services/teammate/fold
 import getRiskToControls from '../services/oneSumX/getRiskToControls.js';
 import { endSync, getSyncStatus, startSync } from './syncManager.js';
 import connectControlsToRisks from './connectControlsToRisks.js';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
+import { publishEmail } from '../services/email.js';
 
 export const SyncStatus = {
-  Done:"Done",
-  Started:"Started",
-  InProgress:"InProgress",
-  Failed:"Failed"
+  Done: "Done",
+  Started: "Started",
+  InProgress: "InProgress",
+  Failed: "Failed"
 }
 
 export default async () => {
   const isSyncInProgress = getSyncStatus();
-  if (isSyncInProgress) return {message:'Syncronization is still in progress', syncStatus:SyncStatus.InProgress};
+  if (isSyncInProgress) return { message: 'Syncronization is still in progress', syncStatus: SyncStatus.InProgress };
   main();
-  return {message:'Syncronization triggered', syncStatus:SyncStatus.Started}
+  publishEmail('Syncronization triggered');
+  return { message: 'Syncronization triggered', syncStatus: SyncStatus.Started }
 };
 
 // ------- Handlers -------
@@ -29,7 +31,7 @@ export default async () => {
 async function main() {
   startSync();
   try {
-    const count=await Risk.count();
+    const count = await Risk.count();
     console.log(count);
     // return
     const oneSumData = await getOneSumXData();
@@ -57,12 +59,12 @@ async function main() {
     console.log(colors.bgYellow.black('\n-----------'));
     console.log(colors.bgYellow.black('-- Risks --'));
     console.log(colors.bgYellow.black('-----------\n'));
-    await handleBulkRisks(risks); 
+    await handleBulkRisks(risks);
     // Controls
     console.log(colors.bgYellow.black('\n-------------'));
     console.log(colors.bgYellow.black('-- Controls --'));
     console.log(colors.bgYellow.black('-------------\n'));
-    await handleBulkControls(controls); 
+    await handleBulkControls(controls);
     // Connections
     await connectControlsToRisks(risksToControls);
     await console.log('✅Syncronization done');
@@ -75,8 +77,7 @@ async function main() {
 
 async function syncFolders(folders, levels, folderType) {
   colors.bgCyan.white(
-    `\n------------- FOLDER TYPE: ${
-      folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
+    `\n------------- FOLDER TYPE: ${folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
     } -------------\n`
   );
   for (let level = 1; level <= levels; level++) {

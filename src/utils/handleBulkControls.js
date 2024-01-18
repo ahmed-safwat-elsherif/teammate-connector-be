@@ -8,7 +8,7 @@ import {
   updateTMControl,
 } from '../services/teammate/controls.js';
 import asyncHolder from './asyncHolder.js';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 

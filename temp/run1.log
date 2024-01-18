@@ -1,0 +1,430 @@
+
+> server@1.0.0 dbg_start
+> node --inspect-brk index.js
+
+[32m✅ Database Connection has been established successfully.[39m
+Server is running on port:3001
+[32m✅ Cabinet table is created/altered successfully[39m
+[32m✅ Control Folders table is created/altered successfully[39m
+[32m✅ Risk Folders table is created/altered successfully[39m
+[32m✅ FolderMap table is created/altered successfully[39m
+[32m✅ Control table is created/altered successfully[39m
+[32m✅ Risk table is created/altered successfully[39m
+[32m✅ Users table is created/altered successfully[39m
+Request:  { method: 'DELETE', endpoint: '/sync/tables/rows' }
+Request:  { method: 'GET', endpoint: '/sync/run' }
+
+------------------------------
+      -:{ START Sync }:-     
+------------------------------
+
+Cabinet (118) created!
+[42m[37m✔️ Cabinets syncronized[39m[49m
+[43m[30m[39m[49m
+[43m[30m------------------[39m[49m
+[43m[30m-- Risk Folders --[39m[49m
+[43m[30m------------------[39m[49m
+[43m[30m[39m[49m
+[45m[37m------------- LEVEL 1 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Cabinet Id= (1)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:101 => tmID:4616) of LEVEL 1
+✔️ Handled Folder (osxID:5 => tmID:4615) of LEVEL 1
+✔️ Handled Folder (osxID:93 => tmID:4613) of LEVEL 1
+✔️ Handled Folder (osxID:2 => tmID:4614) of LEVEL 1
+✔️ Handled Folder (osxID:3 => tmID:4612) of LEVEL 1
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:127 => tmID:4617) of LEVEL 1
+[45m[37m------------- LEVEL 2 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (5)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:12 => tmID:4618) of LEVEL 2
+✔️ Handled Folder (osxID:16 => tmID:4619) of LEVEL 2
+✔️ Handled Folder (osxID:13 => tmID:4620) of LEVEL 2
+✔️ Handled Folder (osxID:14 => tmID:4621) of LEVEL 2
+✔️ Handled Folder (osxID:15 => tmID:4622) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (3)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:83 => tmID:4623) of LEVEL 2
+✔️ Handled Folder (osxID:77 => tmID:4626) of LEVEL 2
+✔️ Handled Folder (osxID:6 => tmID:4625) of LEVEL 2
+✔️ Handled Folder (osxID:78 => tmID:4624) of LEVEL 2
+✔️ Handled Folder (osxID:18 => tmID:4627) of LEVEL 2
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:75 => tmID:4628) of LEVEL 2
+✔️ Handled Folder (osxID:7 => tmID:4629) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (93)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:94 => tmID:4630) of LEVEL 2
+✔️ Handled Folder (osxID:95 => tmID:4631) of LEVEL 2
+✔️ Handled Folder (osxID:96 => tmID:4632) of LEVEL 2
+✔️ Handled Folder (osxID:17 => tmID:4633) of LEVEL 2
+✔️ Handled Folder (osxID:76 => tmID:4634) of LEVEL 2
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:100 => tmID:4635) of LEVEL 2
+✔️ Handled Folder (osxID:99 => tmID:4638) of LEVEL 2
+✔️ Handled Folder (osxID:97 => tmID:4636) of LEVEL 2
+✔️ Handled Folder (osxID:98 => tmID:4637) of LEVEL 2
+✔️ Handled Folder (osxID:74 => tmID:4639) of LEVEL 2
+[1m[34m--------- BATCH 2 ---------[39m[22m
+✔️ Handled Folder (osxID:125 => tmID:4640) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (2)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:11 => tmID:4642) of LEVEL 2
+✔️ Handled Folder (osxID:10 => tmID:4641) of LEVEL 2
+✔️ Handled Folder (osxID:8 => tmID:4643) of LEVEL 2
+✔️ Handled Folder (osxID:9 => tmID:4644) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (101)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:104 => tmID:4645) of LEVEL 2
+✔️ Handled Folder (osxID:110 => tmID:4646) of LEVEL 2
+✔️ Handled Folder (osxID:118 => tmID:4647) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (127)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:105 => tmID:4648) of LEVEL 2
+✔️ Handled Folder (osxID:128 => tmID:4649) of LEVEL 2
+[45m[37m------------- LEVEL 3 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (13)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:23 => tmID:4652) of LEVEL 3
+✔️ Handled Folder (osxID:21 => tmID:4650) of LEVEL 3
+✔️ Handled Folder (osxID:22 => tmID:4651) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (77)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:84 => tmID:4653) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (78)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:80 => tmID:4654) of LEVEL 3
+✔️ Handled Folder (osxID:79 => tmID:4655) of LEVEL 3
+✔️ Handled Folder (osxID:81 => tmID:4656) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (18)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:53 => tmID:4657) of LEVEL 3
+✔️ Handled Folder (osxID:89 => tmID:4658) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (16)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:60 => tmID:4659) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (12)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:20 => tmID:4660) of LEVEL 3
+✔️ Handled Folder (osxID:19 => tmID:4661) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (15)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:62 => tmID:4662) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (17)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:57 => tmID:4665) of LEVEL 3
+✔️ Handled Folder (osxID:56 => tmID:4664) of LEVEL 3
+✔️ Handled Folder (osxID:73 => tmID:4663) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (8)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:45 => tmID:4666) of LEVEL 3
+✔️ Handled Folder (osxID:43 => tmID:4667) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (11)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:40 => tmID:4668) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (9)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:26 => tmID:4669) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (7)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:72 => tmID:4670) of LEVEL 3
+✔️ Handled Folder (osxID:70 => tmID:4671) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (10)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:47 => tmID:4672) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (14)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:24 => tmID:4673) of LEVEL 3
+[45m[37m------------- LEVEL 4 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (23)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:87 => tmID:4674) of LEVEL 4
+✔️ Handled Folder (osxID:86 => tmID:4675) of LEVEL 4
+✔️ Handled Folder (osxID:88 => tmID:4676) of LEVEL 4
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (89)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:91 => tmID:4677) of LEVEL 4
+[43m[30m[39m[49m
+[43m[30m------------------[39m[49m
+[43m[30m-- Control Folders --[39m[49m
+[43m[30m------------------[39m[49m
+[43m[30m[39m[49m
+[45m[37m------------- LEVEL 1 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Cabinet Id= (1)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:3 => tmID:4680) of LEVEL 1
+✔️ Handled Folder (osxID:93 => tmID:4678) of LEVEL 1
+✔️ Handled Folder (osxID:2 => tmID:4682) of LEVEL 1
+✔️ Handled Folder (osxID:5 => tmID:4679) of LEVEL 1
+✔️ Handled Folder (osxID:101 => tmID:4681) of LEVEL 1
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:127 => tmID:4683) of LEVEL 1
+[45m[37m------------- LEVEL 2 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (5)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:15 => tmID:4686) of LEVEL 2
+✔️ Handled Folder (osxID:12 => tmID:4685) of LEVEL 2
+✔️ Handled Folder (osxID:14 => tmID:4684) of LEVEL 2
+✔️ Handled Folder (osxID:16 => tmID:4687) of LEVEL 2
+✔️ Handled Folder (osxID:13 => tmID:4688) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (3)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:77 => tmID:4689) of LEVEL 2
+✔️ Handled Folder (osxID:18 => tmID:4690) of LEVEL 2
+✔️ Handled Folder (osxID:83 => tmID:4692) of LEVEL 2
+✔️ Handled Folder (osxID:78 => tmID:4691) of LEVEL 2
+✔️ Handled Folder (osxID:6 => tmID:4693) of LEVEL 2
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:7 => tmID:4694) of LEVEL 2
+✔️ Handled Folder (osxID:75 => tmID:4695) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (93)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:95 => tmID:4696) of LEVEL 2
+✔️ Handled Folder (osxID:96 => tmID:4697) of LEVEL 2
+✔️ Handled Folder (osxID:76 => tmID:4698) of LEVEL 2
+✔️ Handled Folder (osxID:17 => tmID:4699) of LEVEL 2
+✔️ Handled Folder (osxID:94 => tmID:4700) of LEVEL 2
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Folder (osxID:99 => tmID:4702) of LEVEL 2
+✔️ Handled Folder (osxID:100 => tmID:4701) of LEVEL 2
+✔️ Handled Folder (osxID:97 => tmID:4703) of LEVEL 2
+✔️ Handled Folder (osxID:74 => tmID:4704) of LEVEL 2
+✔️ Handled Folder (osxID:98 => tmID:4705) of LEVEL 2
+[1m[34m--------- BATCH 2 ---------[39m[22m
+✔️ Handled Folder (osxID:125 => tmID:4706) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (2)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:8 => tmID:4707) of LEVEL 2
+✔️ Handled Folder (osxID:11 => tmID:4709) of LEVEL 2
+✔️ Handled Folder (osxID:10 => tmID:4708) of LEVEL 2
+✔️ Handled Folder (osxID:9 => tmID:4710) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (101)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:104 => tmID:4711) of LEVEL 2
+✔️ Handled Folder (osxID:110 => tmID:4712) of LEVEL 2
+✔️ Handled Folder (osxID:118 => tmID:4713) of LEVEL 2
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (127)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:105 => tmID:4715) of LEVEL 2
+✔️ Handled Folder (osxID:128 => tmID:4714) of LEVEL 2
+[45m[37m------------- LEVEL 3 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (13)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:23 => tmID:4717) of LEVEL 3
+✔️ Handled Folder (osxID:21 => tmID:4716) of LEVEL 3
+✔️ Handled Folder (osxID:22 => tmID:4718) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (77)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:84 => tmID:4719) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (78)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:80 => tmID:4721) of LEVEL 3
+✔️ Handled Folder (osxID:81 => tmID:4720) of LEVEL 3
+✔️ Handled Folder (osxID:79 => tmID:4722) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (18)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:89 => tmID:4723) of LEVEL 3
+✔️ Handled Folder (osxID:53 => tmID:4724) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (16)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:60 => tmID:4725) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (12)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:19 => tmID:4726) of LEVEL 3
+✔️ Handled Folder (osxID:20 => tmID:4727) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (15)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:62 => tmID:4728) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (17)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:56 => tmID:4731) of LEVEL 3
+✔️ Handled Folder (osxID:57 => tmID:4730) of LEVEL 3
+✔️ Handled Folder (osxID:73 => tmID:4729) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (8)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:43 => tmID:4733) of LEVEL 3
+✔️ Handled Folder (osxID:45 => tmID:4732) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (11)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:40 => tmID:4734) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (9)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:26 => tmID:4735) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (7)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:72 => tmID:4736) of LEVEL 3
+✔️ Handled Folder (osxID:70 => tmID:4737) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (10)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:47 => tmID:4738) of LEVEL 3
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (14)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:24 => tmID:4739) of LEVEL 3
+[45m[37m------------- LEVEL 4 -------------[39m[49m
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (23)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:87 => tmID:4740) of LEVEL 4
+✔️ Handled Folder (osxID:88 => tmID:4741) of LEVEL 4
+✔️ Handled Folder (osxID:86 => tmID:4742) of LEVEL 4
+[44m[37m[39m[49m
+[44m[37m --- Subfolders of Parent Folder Id= (89)[39m[49m
+[44m[37m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Folder (osxID:91 => tmID:4743) of LEVEL 4
+[43m[30m[39m[49m
+[43m[30m-----------[39m[49m
+[43m[30m-- Risks --[39m[49m
+[43m[30m-----------[39m[49m
+[43m[30m[39m[49m
+[1m[34m--------- BATCH 0 ---------[39m[22m
+✔️ Handled Risk (osxID:2 => tmID:2490) 
+✔️ Handled Risk (osxID:4 => tmID:2488) 
+✔️ Handled Risk (osxID:5 => tmID:2489) 
+✔️ Handled Risk (osxID:3 => tmID:2491) 
+✔️ Handled Risk (osxID:1 => tmID:2492) 
+[1m[34m--------- BATCH 1 ---------[39m[22m
+✔️ Handled Risk (osxID:10 => tmID:2493) 
+✔️ Handled Risk (osxID:9 => tmID:2495) 
+✔️ Handled Risk (osxID:6 => tmID:2496) 
+✔️ Handled Risk (osxID:8 => tmID:2494) 
+✔️ Handled Risk (osxID:7 => tmID:2497) 
+[1m[34m--------- BATCH 2 ---------[39m[22m
+✔️ Handled Risk (osxID:14 => tmID:2498) 
+✔️ Handled Risk (osxID:12 => tmID:2499) 
+✔️ Handled Risk (osxID:13 => tmID:2500) 
+✔️ Handled Risk (osxID:11 => tmID:2501) 
+✔️ Handled Risk (osxID:15 => tmID:2502) 
+[1m[34m--------- BATCH 3 ---------[39m[22m
+✔️ Handled Risk (osxID:20 => tmID:2504) 
+✔️ Handled Risk (osxID:16 => tmID:2503) 
+✔️ Handled Risk (osxID:19 => tmID:2505) 
+✔️ Handled Risk (osxID:18 => tmID:2506) 
+✔️ Handled Risk (osxID:17 => tmID:2507) 
+[1m[34m--------- BATCH 4 ---------[39m[22m
+✔️ Handled Risk (osxID:25 => tmID:2508) 
+✔️ Handled Risk (osxID:23 => tmID:2509) 
+✔️ Handled Risk (osxID:21 => tmID:2510) 
+✔️ Handled Risk (osxID:22 => tmID:2511) 
+✔️ Handled Risk (osxID:24 => tmID:2512) 
+[1m[34m--------- BATCH 5 ---------[39m[22m
+✔️ Handled Risk (osxID:29 => tmID:2514) 
+✔️ Handled Risk (osxID:28 => tmID:2513) 
+✔️ Handled Risk (osxID:26 => tmID:2515) 
+✔️ Handled Risk (osxID:30 => tmID:2517) 
+✔️ Handled Risk (osxID:27 => tmID:2516) 
+[1m[34m--------- BATCH 6 ---------[39m[22m
+✔️ Handled Risk (osxID:33 => tmID:2519) 
+✔️ Handled Risk (osxID:34 => tmID:2518) 
+✔️ Handled Risk (osxID:32 => tmID:2520) 
+✔️ Handled Risk (osxID:35 => tmID:2521) 
+✔️ Handled Risk (osxID:31 => tmID:2522) 
+[1m[34m--------- BATCH 7 ---------[39m[22m
+✔️ Handled Risk (osxID:44 => tmID:2524) 
+✔️ Handled Risk (osxID:36 => tmID:2523) 
+✔️ Handled Risk (osxID:39 => tmID:2526) 
+✔️ Handled Risk (osxID:38 => tmID:2525) 
+✔️ Handled Risk (osxID:37 => tmID:2527) 
+[1m[34m--------- BATCH 8 ---------[39m[22m
+✔️ Handled Risk (osxID:55 => tmID:2528) 
+✔️ Handled Risk (osxID:47 => tmID:2531) 
+✔️ Handled Risk (osxID:45 => tmID:2530) 
+✔️ Handled Risk (osxID:56 => tmID:2529) 
+✔️ Handled Risk (osxID:46 => tmID:2532) 
+[1m[34m--------- BATCH 9 ---------[39m[22m
+❌Syncronization failed
+{ message: "Couldn't create a Risk " }
+✔️ Handled Risk (osxID:58 => tmID:2533) 
+✔️ Handled Risk (osxID:59 => tmID:2534) 
+✔️ Handled Risk (osxID:61 => tmID:2535) 
+✔️ Handled Risk (osxID:57 => tmID:2536) 

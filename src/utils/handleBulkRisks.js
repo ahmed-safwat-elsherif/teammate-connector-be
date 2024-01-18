@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import { createTMRisk, getTMRisk, removeTMRisk, updateTMRisk } from '../services/teammate/risks.js';
 import RiskFolder from '../models/RiskFolder.js';
 import asyncHolder from './asyncHolder.js';
