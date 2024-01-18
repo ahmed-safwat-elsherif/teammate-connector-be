@@ -1,7 +1,5 @@
 import axiosBase from 'axios';
 import { teammateAuthToken, tmBaseUrl } from '../../config/index.js';
-import axiosBase from 'axios';
-import { teammateAuthToken, tmBaseUrl } from '../../config/index.js';
 
 const axiosTM = axiosBase.create({
   baseURL: tmBaseUrl,

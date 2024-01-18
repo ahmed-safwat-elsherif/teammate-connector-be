@@ -6,6 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "node .",
+    "lin_pm2_start": "npx pm2 start index.js --output \"logs/$(date).log\"",
+    "win_pm2_start": "npx pm2 start index.js --output \"logs\\$(date).log\"",
+    "lin_start_log": "node index.js | tee \"logs/$(date).log\"",
+    "win_start_log": "node index.js | Tee-Object -FilePath \"logs\\$(date).log\"",
     "dbg_start": "node --inspect-brk index.js",
     "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "msnodesqlv8": "^4.1.2",
+    "nodemailer": "^6.9.8",
     "open": "^10.0.3",
     "sequelize": "^6.35.1",
     "swagger-jsdoc": "^6.2.8",

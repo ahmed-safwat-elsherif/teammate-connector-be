@@ -7,10 +7,10 @@ import syncronize from "../../utils/syncronize.js";
  */
 export const startSync = async (_, res) => {
   try {
-    const {message,syncStatus} = await syncronize();
-    res.json({ message,syncStatus });
+    const { message, syncStatus } = await syncronize();
+    res.json({ message, syncStatus });
   } catch (error) {
-    res.status(400).json({ message: error?.message,syncStatus });
+    res.status(400).json({ message: error?.message, syncStatus });
   }
 };
 

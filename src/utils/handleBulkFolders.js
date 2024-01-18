@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Cabinet from '../models/Cabinet.js';
+import Cabinet from '../models/cabinet.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 import {
@@ -11,25 +11,17 @@ import {
 } from '../services/teammate/folders.js';
 import ControlFolder from '../models/ControlFolder.js';
 import asyncHolder from './asyncHolder.js';
-} from '../services/teammate/folders.js';
-import ControlFolder from '../models/ControlFolder.js';
-import asyncHolder from './asyncHolder.js';
 
 const BATCH_COUNT = 5;
 /**
  * @param {import('../services/oneSumX/getOneSumXData.js').Folder[]} folders
- * @param {import('../services/oneSumX/getOneSumXData.js').Folder[]} folders
  * @param {boolean} parentIsFolder
- * @param {'RISK' | 'CONTROL'} folderType
  * @param {'RISK' | 'CONTROL'} folderType
  */
 export default async function handleBulkFolders(folders, parentIsFolder, folderType) {
   const parentIds = [...new Set(folders.map(folder => folder.parentId))];
-export default async function handleBulkFolders(folders, parentIsFolder, folderType) {
-  const parentIds = [...new Set(folders.map(folder => folder.parentId))];
   for (let index = 0; index < parentIds.length; index++) {
     const currentParentId = parentIds[index];
-    const subFolders = folders.filter(folder => folder.parentId === currentParentId);
     const subFolders = folders.filter(folder => folder.parentId === currentParentId);
     console.log(
       colors.bgBlue.white(
@@ -44,16 +36,10 @@ export default async function handleBulkFolders(folders, parentIsFolder, folderT
 
 /**
  * @param {import('../services/oneSumX/getOneSumXData.js').Folder[]} folders
- * @param {import('../services/oneSumX/getOneSumXData.js').Folder[]} folders
  * @param {boolean} parentIsFolder
- * @param {'RISK' | 'CONTROL'} folderType
  * @param {'RISK' | 'CONTROL'} folderType
  */
 async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
-  /**
-   * Define "Batches": "Batch" is 5 requests (according to the global variable 'BATCH_COUNT'), each
-   * batch of folders will be executed according to a sleep interval of 4000 ms (4 seconds)
-   */
   /**
    * Define "Batches": "Batch" is 5 requests (according to the global variable 'BATCH_COUNT'), each
    * batch of folders will be executed according to a sleep interval of 4000 ms (4 seconds)
@@ -63,15 +49,12 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
     (foldersCount ) / BATCH_COUNT
   );
   let batchOfFolders = [];
-  let batchOfFolders = [];
   for (let index = 0; index < numOfBatches; index++) {
-    batchOfFolders = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
     batchOfFolders = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
 
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
     await Promise.all(
-      batchOfFolders.map(folder => handleFolder(folder, parentIsFolder, folderType))
       batchOfFolders.map(folder => handleFolder(folder, parentIsFolder, folderType))
     );
   }
@@ -79,16 +62,11 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
 
 /**
  * @param {import('../services/oneSumX/getOneSumXData.js').Folder} folder
- * @param {import('../services/oneSumX/getOneSumXData.js').Folder} folder
  * @param {boolean} parentIsFolder
- * @param {'RISK' | 'CONTROL'} folderType
  * @param {'RISK' | 'CONTROL'} folderType
  */
 async function handleFolder(folder, parentIsFolder, folderType) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = folder;
-  // Define selected models (Risk or Control)
-  const isRiskFolder = folderType === FOLDER_TYPE_RISK;
-  const Folder = isRiskFolder ? RiskFolder : ControlFolder;
   // Define selected models (Risk or Control)
   const isRiskFolder = folderType === FOLDER_TYPE_RISK;
   const Folder = isRiskFolder ? RiskFolder : ControlFolder;
@@ -101,7 +79,6 @@ async function handleFolder(folder, parentIsFolder, folderType) {
     where: { oneSumXId: oneSumXParentId },
   });
 
-
   if (!folderInSystem) {
     try {
       // Add the cabinet for both Sync System & Teammate databases
@@ -110,7 +87,6 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         parentId: parentInfo.id,
         parentIsFolder,
         folderType,
-      }).then(res => res.data);
       }).then(res => res.data);
 
       folderInSystem = await Folder.create({
@@ -124,7 +100,6 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         // Revert back if cabinet is already created in Teammate
         await removeTMFolder(folderInTM.id, folderType);
       }
-      debugger;
       throw new Error(
         `Couldn't create a Folder ${
           folderInTM ? `of title (${folderInTM.title}) LEVEL ${folder.level}` : ''
@@ -136,16 +111,13 @@ async function handleFolder(folder, parentIsFolder, folderType) {
     const { data, error } = await getTMFolder(folderInSystemObj.id, folderType)
       .then(res => ({ data: res.data }))
       .catch(err => {
-      .then(res => ({ data: res.data }))
-      .catch(err => {
         if (err.response.status === 404) {
           return { data: null };
         }
         return { data: null, error: err.message };
       });
     folderInTM = data;
-    if (error) {
-      debugger;
+    if (error)
       throw new Error(
         `Couldn't update a Folder ${
           folderInSystem
@@ -153,7 +125,6 @@ async function handleFolder(folder, parentIsFolder, folderType) {
             : ''
         }`
       );
-    }
     if (!folderInTM) {
       folderInTM = await createTMFolder({
         title,
@@ -161,17 +132,12 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         parentIsFolder,
         folderType,
       }).then(res => res.data);
-      }).then(res => res.data);
     } else {
       try {
         folderInTM = await updateTMFolder(folderInSystem.id, title, folderType).then(
           res => res.data
         );
-        folderInTM = await updateTMFolder(folderInSystem.id, title, folderType).then(
-          res => res.data
-        );
       } catch (error) {
-        debugger;
         throw new Error(
           `Couldn't update a Folder ${
             folderInSystem
@@ -200,21 +166,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
       [folderAttr]: folderInSystem.toJSON().id,
     });
   }
-  // Manage folder mapping
-  const folderMap = await FolderMap.findOne({ where: { oneSumXId } });
-  const folderAttr = isRiskFolder ? 'riskFolderId' : 'controlFolderId';
-
-  if (folderMap) {
-    folderMap[folderAttr] = folderInSystem.toJSON().id;
-    await folderMap.save();
-  } else {
-    await FolderMap.create({
-      oneSumXId,
-      [folderAttr]: folderInSystem.toJSON().id,
-    });
-  }
   console.log(
-    `✔️ Handled Folder (osxID:${folder.id} => tmID:${folderInSystem?.id}) of LEVEL ${folder.level}`
     `✔️ Handled Folder (osxID:${folder.id} => tmID:${folderInSystem?.id}) of LEVEL ${folder.level}`
   );
 }

@@ -1,5 +1,5 @@
 import Control from '../models/Control.js';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import { linkControlsToOneRisk } from '../services/teammate/folders.js';
 
 /** @param {{ riskId: number; controls: { controlId: number; controlDesc: string }[] }[]} risksToControls */
