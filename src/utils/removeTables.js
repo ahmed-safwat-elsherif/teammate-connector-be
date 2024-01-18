@@ -1,8 +1,8 @@
-import Cabinet from "../models/Cabinet.js";
+import Cabinet from "../models/cabinet.js";
 
 import Control from "../models/Control.js";
 import ControlFolder from "../models/ControlFolder.js";
-import Risk from "../models/Risk.js";
+import Risk from "../models/risk.js";
 import RiskFolder from "../models/RiskFolder.js";
 
 export default async () => {

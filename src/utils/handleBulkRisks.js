@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import { createTMRisk, getTMRisk, removeTMRisk, updateTMRisk } from '../services/teammate/risks.js';
 import RiskFolder from '../models/RiskFolder.js';
 import asyncHolder from './asyncHolder.js';
@@ -47,6 +47,7 @@ async function handleRisk(risk) {
         // Revert back if cabinet is already created in Teammate
         await removeTMRisk(riskInTM.id);
       }
+      debugger;
       throw new Error(`Couldn't create a Risk ${riskInTM ? `of title (${riskInTM.title})` : ''}`);
     }
   } else {
@@ -60,21 +61,22 @@ async function handleRisk(risk) {
         return { data: null, error: err.message };
       });
     riskInTM = data;
-    if (error)
+    if (error) {
+      debugger;
       throw new Error(
-        `Couldn't update a Risk ${
-          riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
+        `Couldn't update a Risk ${riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
         }`
       );
+    }
     if (!riskInTM) {
       riskInTM = await createTMRisk(title, parentInfo.id).then(res => res.data);
     } else {
       try {
         riskInTM = await updateTMRisk(riskInSystem.id, title).then(res => res.data);
       } catch (error) {
+        debugger;
         throw new Error(
-          `Couldn't update a Risk ${
-            riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
+          `Couldn't update a Risk ${riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
           }`
         );
       }

@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Cabinet from '../models/Cabinet.js';
+import Cabinet from '../models/cabinet.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 import {
@@ -26,8 +26,7 @@ export default async function handleBulkFolders(folders, parentIsFolder, folderT
     const subFolders = folders.filter(folder => folder.parentId === currentParentId);
     console.log(
       colors.bgBlue.white(
-        `\n --- Subfolders of ${
-          parentIsFolder ? 'Parent Folder Id=' : 'Cabinet Id='
+        `\n --- Subfolders of ${parentIsFolder ? 'Parent Folder Id=' : 'Cabinet Id='
         } (${currentParentId})\n`
       )
     );
@@ -101,9 +100,9 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         // Revert back if cabinet is already created in Teammate
         await removeTMFolder(folderInTM.id, folderType);
       }
+      debugger;
       throw new Error(
-        `Couldn't create a Folder ${
-          folderInTM ? `of title (${folderInTM.title}) LEVEL ${folder.level}` : ''
+        `Couldn't create a Folder ${folderInTM ? `of title (${folderInTM.title}) LEVEL ${folder.level}` : ''
         }`
       );
     }
@@ -118,14 +117,15 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         return { data: null, error: err.message };
       });
     folderInTM = data;
-    if (error)
+    if (error) {
+      debugger;
       throw new Error(
-        `Couldn't update a Folder ${
-          folderInSystem
-            ? `of title (${folderInSystem.title}) ID=${folderInSystem.id} - LEVEL ${folder.level}`
-            : ''
+        `Couldn't update a Folder ${folderInSystem
+          ? `of title (${folderInSystem.title}) ID=${folderInSystem.id} - LEVEL ${folder.level}`
+          : ''
         }`
       );
+    }
     if (!folderInTM) {
       folderInTM = await createTMFolder({
         title,
@@ -139,11 +139,11 @@ async function handleFolder(folder, parentIsFolder, folderType) {
           res => res.data
         );
       } catch (error) {
+        debugger;
         throw new Error(
-          `Couldn't update a Folder ${
-            folderInSystem
-              ? `of title (${folderInSystem.title}) ID=${folderInSystem.id} - LEVEL ${folder.level}`
-              : ''
+          `Couldn't update a Folder ${folderInSystem
+            ? `of title (${folderInSystem.title}) ID=${folderInSystem.id} - LEVEL ${folder.level}`
+            : ''
           }`
         );
       }
