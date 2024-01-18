@@ -6,7 +6,7 @@ const axiosTM = axiosBase.create({
   headers: {
     Authorization: teammateAuthToken,
   },
-  timeout: 10_000,
+  timeout: 60_000,
 });
 
 export default axiosTM;
