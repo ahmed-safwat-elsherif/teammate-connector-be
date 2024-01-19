@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import logger from './src/utils/logger.js';
 import cronJobRoutes from './src/routes/cronJob.js';
 import userRoutes from './src/routes/users.js';
+import logsRoutes from './src/routes/logs.js';
 import './src/db/index.js';
 import swaggerDocs from './src/utils/swagger.js';
 
@@ -24,6 +25,7 @@ app.get('/', (_, res) => {
 // Routes
 app.use('/sync', cronJobRoutes);
 app.use('/auth', userRoutes);
+app.use('/logs', logsRoutes);
 
 // Start
 app.listen(serverPort, async () => {

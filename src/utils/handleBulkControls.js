@@ -8,17 +8,16 @@ import {
   updateTMControl,
 } from '../services/teammate/controls.js';
 import asyncHolder from './asyncHolder.js';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 
-const MAX_CONTROLS_COUNT = 1000;
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control[]} controls */
 export default async function handleBulkControls(controls) {
   const controlsCount = controls.length;
   const numOfBatches = Math.ceil(
-    (controlsCount < MAX_CONTROLS_COUNT ? controlsCount : MAX_CONTROLS_COUNT) / BATCH_COUNT
+    (controlsCount / BATCH_COUNT)
   );
   let batches = [];
   /**
@@ -50,7 +49,7 @@ export default async function handleBulkControls(controls) {
 
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 async function handleControl(control) {
-  const { id: oneSumXId, title, parentId } = control;
+  const { id: oneSumXId, title, parentId, riskId:riskOsxId } = control;
 
   let controlInSystem = await Control.findOne({ where: { oneSumXId } });
   let parentInfo = null;
@@ -68,6 +67,7 @@ async function handleControl(control) {
         title,
         parentId: parentInfo.id,
         oneSumXId,
+        riskOsxId,
       });
     } catch (error) {
       if (controlInTM) {

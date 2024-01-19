@@ -1,5 +1,5 @@
 import colors from 'colors';
-import Cabinet from '../models/Cabinet.js';
+import Cabinet from '../models/cabinet.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 import {
@@ -12,7 +12,6 @@ import {
 import ControlFolder from '../models/ControlFolder.js';
 import asyncHolder from './asyncHolder.js';
 
-const MAX_FOLDERS_COUNT = 1000;
 const BATCH_COUNT = 5;
 /**
  * @param {import('../services/oneSumX/getOneSumXData.js').Folder[]} folders
@@ -47,7 +46,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
    */
   const foldersCount = folders.length;
   const numOfBatches = Math.ceil(
-    (foldersCount < MAX_FOLDERS_COUNT ? foldersCount : MAX_FOLDERS_COUNT) / BATCH_COUNT
+    (foldersCount ) / BATCH_COUNT
   );
   let batchOfFolders = [];
   for (let index = 0; index < numOfBatches; index++) {

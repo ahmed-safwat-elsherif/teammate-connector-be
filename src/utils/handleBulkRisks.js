@@ -1,16 +1,15 @@
 import colors from 'colors';
-import Risk from '../models/Risk.js';
+import Risk from '../models/risk.js';
 import { createTMRisk, getTMRisk, removeTMRisk, updateTMRisk } from '../services/teammate/risks.js';
 import RiskFolder from '../models/RiskFolder.js';
 import asyncHolder from './asyncHolder.js';
 
-const MAX_RISKS_COUNT = 1000;
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getOneSumXData.js').Risk[]} risks */
 export default async function handleBulkRisks(risks) {
   const risksCount = risks.length;
   const numOfBatches = Math.ceil(
-    (risksCount < MAX_RISKS_COUNT ? risksCount : MAX_RISKS_COUNT) / BATCH_COUNT
+    (risksCount ) / BATCH_COUNT
   );
   let batches = [];
   for (let index = 0; index < numOfBatches; index++) {

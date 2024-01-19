@@ -1,0 +1,1 @@
+{"message":"User is created","user":{"id":1,"username":"eslam","firstname":"Eslam","lastname":"Elsharkawy","email":"elshareslam@gmail.com","role":"USER","updatedAt":"2024-01-18T12:50:06.924Z","createdAt":"2024-01-18T12:50:06.924Z"}}

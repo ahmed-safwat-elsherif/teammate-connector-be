@@ -8,12 +8,22 @@ import { FOLDER_TYPE_CONTROL, FOLDER_TYPE_RISK } from '../services/teammate/fold
 import getRiskToControls from '../services/oneSumX/getRiskToControls.js';
 import { endSync, getSyncStatus, startSync } from './syncManager.js';
 import connectControlsToRisks from './connectControlsToRisks.js';
+import Risk from '../models/risk.js';
+import { publishEmail } from '../services/email.js';
+
+export const SyncStatus = {
+  Done: "Done",
+  Started: "Started",
+  InProgress: "InProgress",
+  Failed: "Failed"
+}
 
 export default async () => {
   const isSyncInProgress = getSyncStatus();
-  if (isSyncInProgress) return 'Syncronization is still in progress';
+  if (isSyncInProgress) return { message: 'Syncronization is still in progress', syncStatus: SyncStatus.InProgress };
   main();
-  return 'Syncronization triggered';
+  publishEmail('Syncronization triggered');
+  return { message: 'Syncronization triggered', syncStatus: SyncStatus.Started }
 };
 
 // ------- Handlers -------
@@ -21,6 +31,9 @@ export default async () => {
 async function main() {
   startSync();
   try {
+    const count = await Risk.count();
+    console.log(count);
+    // return
     const oneSumData = await getOneSumXData();
     const { controls, risksToControls } = await getRiskToControls();
     const { cabinets, folders, risks, levels } = oneSumData;
@@ -64,8 +77,7 @@ async function main() {
 
 async function syncFolders(folders, levels, folderType) {
   colors.bgCyan.white(
-    `\n------------- FOLDER TYPE: ${
-      folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
+    `\n------------- FOLDER TYPE: ${folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
     } -------------\n`
   );
   for (let level = 1; level <= levels; level++) {

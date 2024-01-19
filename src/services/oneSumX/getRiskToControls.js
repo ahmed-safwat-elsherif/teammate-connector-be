@@ -35,8 +35,7 @@ const getRiskToControls = async () => {
     const [rows] = await sequelize.query(query);
     let controlsMapper = new Map();
     let riskToControlsMapper = new Map();
-    // TODO: unslice rows
-    rows.slice(0, 300).forEach(row => {
+    rows.forEach(row => {
       const { riskId, controlId: id, controlDesc: title } = row;
       const ctrl = { id, title, riskId };
       if (!controlsMapper.has(id)) controlsMapper.set(id, ctrl);
