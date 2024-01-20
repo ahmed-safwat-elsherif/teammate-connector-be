@@ -4,6 +4,7 @@ import { getSettings, setSettings } from '../controllers/cronJob/cronJob.js';
 import { deleteAllTables, startSync } from '../controllers/cronJob/cabinets.js';
 import { getTMCabinet } from '../services/teammate/cabinets.js';
 import { getOSXData } from '../controllers/cronJob/osx.js';
+import isAdmin from '../middlewares/isAdmin.js';
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.post('/settings', authenticate, setSettings);
  *       400:
  *         description: Syncronization process failed and stopped.
  */
-router.post('/run',authenticate, startSync);
+router.post('/run', authenticate, startSync);
 /**
  * @openapi
  * /sync/tables/rows:
@@ -41,7 +42,7 @@ router.post('/run',authenticate, startSync);
  *       400:
  *         description: Tables' rows failed to be cleared.
  */
-router.delete('/tables/rows', deleteAllTables);
+router.delete('/tables/rows', authenticate, isAdmin, deleteAllTables);
 
 /**
  * @openapi
