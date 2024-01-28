@@ -11,14 +11,13 @@ import asyncHolder from './asyncHolder.js';
 import Risk from '../models/risk.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
+import syncManager from './syncManager.js';
 
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control[]} controls */
 export default async function handleBulkControls(controls) {
   const controlsCount = controls.length;
-  const numOfBatches = Math.ceil(
-    (controlsCount / BATCH_COUNT)
-  );
+  const numOfBatches = Math.ceil(controlsCount / BATCH_COUNT);
   let batches = [];
   /**
    * Problem, current query doesn't provide a clue about the parent folder id! .. so the solution
@@ -44,12 +43,13 @@ export default async function handleBulkControls(controls) {
         }
       })
     );
+    syncManager.updateProgress(batches.length);
   }
 }
 
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 async function handleControl(control) {
-  const { id: oneSumXId, title, parentId, riskId:riskOsxId } = control;
+  const { id: oneSumXId, title, parentId, riskId: riskOsxId } = control;
 
   let controlInSystem = await Control.findOne({ where: { oneSumXId } });
   let parentInfo = null;
@@ -102,6 +102,7 @@ async function handleControl(control) {
       try {
         controlInTM = await updateTMControl(controlInSystem.id, title).then(res => res.data);
       } catch (error) {
+        console.dir(error);
         throw new Error(
           `Couldn't update a Control ${
             controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''

@@ -1,6 +1,7 @@
 import Control from '../models/Control.js';
 import Risk from '../models/risk.js';
 import { linkControlsToOneRisk } from '../services/teammate/folders.js';
+import syncManager from './syncManager.js';
 
 /** @param {{ riskId: number; controls: { controlId: number; controlDesc: string }[] }[]} risksToControls */
 export default async risksToControls => {
@@ -14,5 +15,6 @@ export default async risksToControls => {
         controls.map(c => c.id)
       );
     }
+    syncManager.updateProgress(1);
   }
 };

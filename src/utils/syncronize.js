@@ -6,37 +6,47 @@ import handleBulkRisks from './handleBulkRisks.js';
 import handleBulkControls from './handleBulkControls.js';
 import { FOLDER_TYPE_CONTROL, FOLDER_TYPE_RISK } from '../services/teammate/folders.js';
 import getRiskToControls from '../services/oneSumX/getRiskToControls.js';
-import { endSync, getSyncStatus, startSync } from './syncManager.js';
+import syncManager from './syncManager.js';
 import connectControlsToRisks from './connectControlsToRisks.js';
-import Risk from '../models/risk.js';
 import { publishEmail } from '../services/email.js';
 
 export const SyncStatus = {
-  Done: "Done",
-  Started: "Started",
-  InProgress: "InProgress",
-  Failed: "Failed"
-}
+  Done: 'Done',
+  Started: 'Started',
+  InProgress: 'InProgress',
+  Failed: 'Failed',
+};
 
 export default async () => {
-  const isSyncInProgress = getSyncStatus();
-  if (isSyncInProgress) return { message: 'Syncronization is still in progress', syncStatus: SyncStatus.InProgress };
+  if (syncManager.inProgress) {
+    return {
+      message: 'Syncronization is still in progress',
+      syncStatus: syncManager.status,
+      progress: syncManager.progressPct,
+    };
+  }
+  const result = { message: 'Syncronization triggered', syncStatus: syncManager.status };
+  syncManager.startSync();
   main();
   publishEmail('Syncronization triggered');
-  return { message: 'Syncronization triggered', syncStatus: SyncStatus.Started }
+  return result;
 };
 
 // ------- Handlers -------
 
 async function main() {
-  startSync();
   try {
-    const count = await Risk.count();
-    console.log(count);
-    // return
     const oneSumData = await getOneSumXData();
     const { controls, risksToControls } = await getRiskToControls();
     const { cabinets, folders, risks, levels } = oneSumData;
+    /**
+     * Set the total number of sync operations = [Cabinets + Folders X 2 (For Risks and Controls) +
+     * Risks + Controls + Linking between a given risk and set of controls ]
+     */
+    syncManager.setTotalSyncOperation(
+      cabinets.length + folders.length * 2 + risks.length + controls.length + risksToControls.length
+    );
+
     // handle cabinets
     console.log('\n------------------------------');
     console.log('      -:{ START Sync }:-     ');
@@ -68,16 +78,18 @@ async function main() {
     // Connections
     await connectControlsToRisks(risksToControls);
     await console.log('✅Syncronization done');
+    syncManager.endSync();
   } catch (error) {
     console.log('❌Syncronization failed');
     console.log({ message: error.message });
+    syncManager.endSync(true);
   }
-  endSync();
 }
 
 async function syncFolders(folders, levels, folderType) {
   colors.bgCyan.white(
-    `\n------------- FOLDER TYPE: ${folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
+    `\n------------- FOLDER TYPE: ${
+      folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
     } -------------\n`
   );
   for (let level = 1; level <= levels; level++) {

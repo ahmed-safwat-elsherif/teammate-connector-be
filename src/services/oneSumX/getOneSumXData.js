@@ -1,31 +1,5 @@
 import sequelize from '../../db/oneSumX.db.js';
-
-const query = `
-select 
-  ou3.ORG_ID orgLevel1Id, 
-  ou3.org_name orgLevel1Name,  
-  ou2.ORG_ID orgLevel2Id, 
-  ou2.org_name orgLevel2Name, 
-  ou1.ORG_ID orgLevel3Id, 
-  ou1.org_name orgLevel3Name,
-  a.ACTIVITY_ID activityId,
-  a.ACTIVITY_NAME activityName,
-  p.PROCESS_ID processId, 
-  p.PROCESS_DESC processDescription, 
-  risk_id riskId, 
-  risk_name riskName, 
-  RISK_DESCRIPTION riskDescription, 
-  rc.RISK_CATEGORY_ID riskCategoryID, 
-  rc.RISK_CATEGORY_LONG_DESC riskCategoryDescription
-from RISK r
-left join RISK_CATEGORY rc on r.RISK_CATEGORY_ID=rc.RISK_CATEGORY_ID and rc.DELETED_FLAG='N'
-join PROCESS p on r.PROCESS_ID=p.PROCESS_ID and p.DELETED_FLAG='N'
-join ACTIVITY a on p.ACTIVITY_ID=a.ACTIVITY_ID and a.DELETED_FLAG='N'
-join ORGANISATION_UNIT ou1 on a.ORG_ID=ou1.ORG_ID and ou1.DELETED_FLAG='N'
-join ORGANISATION_UNIT ou2 on ou2.ORG_ID=ou1.PARENT_ORG and ou2.DELETED_FLAG='N'
-join ORGANISATION_UNIT ou3 on ou3.ORG_ID=ou2.PARENT_ORG and ou3.DELETED_FLAG='N'
-where r.DELETED_FLAG='N'
-`;
+import { query } from '../../queries/oneSumX/risks.js';
 
 /**
  * @returns {{
@@ -38,60 +12,62 @@ where r.DELETED_FLAG='N'
 const getOneSumXData = async () => {
   try {
     const [rows] = await sequelize.query(query);
-    const formattedRows = structOneSumData(rows);
-    return formattedRows;
+    return prepareRows(rows);
   } catch (error) {
     console.dir({ error });
     throw new Error("Couldn't get 'One Sum X' risks");
   }
 };
+
 export default getOneSumXData;
 
-/* ------------------ Helpers --------------------
-/**
- *
- * @param {OneSumXRisk[]} rows
- */
-function structOneSumData(rows) {
+/* ------------------ Helpers --------------------*/
+
+/** @param {OneSumXRisk[]} rows */
+function prepareRows(rows) {
   const tree = new Map();
   const risks = new Map();
   rows.forEach(row => {
-    if (!tree.has(row.orgLevel1Id)) {
-      tree.set(row.orgLevel1Id, {
-        parentId: null,
-        id: row.orgLevel1Id,
-        title: row.orgLevel1Name,
-      });
+    if (row.ORG_ID_Level1) {
+      if (!tree.has(row.ORG_ID_Level1)) {
+        tree.set(row.ORG_ID_Level1, {
+          id: row.ORG_ID_Level1,
+          title: row.ORG_NAME_Level1,
+          parentId: null,
+        });
+      }
     }
 
-    if (!tree.has(row.orgLevel2Id)) {
-      tree.set(row.orgLevel2Id, {
-        parentId: row.orgLevel1Id,
-        id: row.orgLevel2Id,
-        title: row.orgLevel2Name,
-      });
-    } else {
-      tree.get(row.orgLevel2Id).parentId = row.orgLevel1Id;
+    if (row.ORG_ID_Level2) {
+      if (!tree.has(row.ORG_ID_Level2)) {
+        tree.set(row.ORG_ID_Level2, {
+          id: row.ORG_ID_Level2,
+          title: row.ORG_NAME_Level2,
+          parentId: row.ORG_ID_Level1,
+        });
+      } else {
+        tree.get(row.ORG_ID_Level2).parentId = row.ORG_ID_Level1;
+      }
     }
 
-    if (!tree.has(row.orgLevel3Id)) {
-      tree.set(row.orgLevel3Id, {
-        parentId: row.orgLevel2Id,
-        id: row.orgLevel3Id,
-        title: row.orgLevel3Name,
-      });
-    } else {
-      tree.get(row.orgLevel3Id).parentId = row.orgLevel2Id;
+    if (row.ORG_ID_Level3) {
+      if (!tree.has(row.ORG_ID_Level3)) {
+        tree.set(row.ORG_ID_Level3, {
+          id: row.ORG_ID_Level3,
+          title: row.ORG_NAME_Level3,
+          parentId: row.ORG_ID_Level2,
+        });
+      } else {
+        tree.get(row.ORG_ID_Level3).parentId = row.ORG_ID_Level2;
+      }
     }
-
-    // Calculate the
 
     // Risks
-    if (!risks.has(row.riskId)) {
-      risks.set(row.riskId, {
-        id: row.riskId,
-        title: row.riskName,
-        parentId: row.orgLevel3Id,
+    if (row.risk_id && !risks.has(row.risk_id)) {
+      risks.set(row.risk_id, {
+        id: row.risk_id,
+        title: row.risk_name,
+        parentId: row.ORG_ID_Level4 || row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1,
       });
     }
   });
@@ -126,14 +102,16 @@ function assignLevel(nodes, node, level = 0) {
 
 /**
  * @typedef {{
- *   orgLevel1Id: number;
- *   orgLevel2Id: number;
- *   orgLevel3Id: number;
- *   orgLevel1Name: string;
- *   orgLevel2Name: string;
- *   orgLevel3Name: string;
- *   riskId: number;
- *   riskName: string;
+ *   ORG_ID_Level1: number;
+ *   ORG_ID_Level2: number;
+ *   ORG_ID_Level3: number;
+ *   ORG_ID_Level4: number;
+ *   ORG_NAME_Level1: string;
+ *   ORG_NAME_Level2: string;
+ *   ORG_NAME_Level3: string;
+ *   ORG_NAME_Level4: string;
+ *   risk_id: number;
+ *   risk_name: string;
  * }} OneSumXRisk
  *
  *

@@ -11,6 +11,7 @@ import {
 } from '../services/teammate/folders.js';
 import ControlFolder from '../models/ControlFolder.js';
 import asyncHolder from './asyncHolder.js';
+import syncManager from './syncManager.js';
 
 const BATCH_COUNT = 5;
 /**
@@ -45,9 +46,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
    * batch of folders will be executed according to a sleep interval of 4000 ms (4 seconds)
    */
   const foldersCount = folders.length;
-  const numOfBatches = Math.ceil(
-    (foldersCount ) / BATCH_COUNT
-  );
+  const numOfBatches = Math.ceil(foldersCount / BATCH_COUNT);
   let batchOfFolders = [];
   for (let index = 0; index < numOfBatches; index++) {
     batchOfFolders = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
@@ -57,6 +56,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
     await Promise.all(
       batchOfFolders.map(folder => handleFolder(folder, parentIsFolder, folderType))
     );
+    syncManager.updateProgress(batchOfFolders.length);
   }
 }
 
@@ -100,6 +100,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         // Revert back if cabinet is already created in Teammate
         await removeTMFolder(folderInTM.id, folderType);
       }
+      console.dir(error);
       throw new Error(
         `Couldn't create a Folder ${
           folderInTM ? `of title (${folderInTM.title}) LEVEL ${folder.level}` : ''
@@ -117,7 +118,8 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         return { data: null, error: err.message };
       });
     folderInTM = data;
-    if (error)
+    if (error) {
+      console.dir(error);
       throw new Error(
         `Couldn't update a Folder ${
           folderInSystem
@@ -125,6 +127,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
             : ''
         }`
       );
+    }
     if (!folderInTM) {
       folderInTM = await createTMFolder({
         title,
@@ -138,6 +141,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
           res => res.data
         );
       } catch (error) {
+        console.dir(error);
         throw new Error(
           `Couldn't update a Folder ${
             folderInSystem
