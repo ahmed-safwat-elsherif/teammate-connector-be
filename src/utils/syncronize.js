@@ -12,18 +12,19 @@ import Risk from '../models/risk.js';
 import { publishEmail } from '../services/email.js';
 
 export const SyncStatus = {
-  Done: "Done",
-  Started: "Started",
-  InProgress: "InProgress",
-  Failed: "Failed"
-}
+  Done: 'Done',
+  Started: 'Started',
+  InProgress: 'InProgress',
+  Failed: 'Failed',
+};
 
 export default async () => {
   const isSyncInProgress = getSyncStatus();
-  if (isSyncInProgress) return { message: 'Syncronization is still in progress', syncStatus: SyncStatus.InProgress };
+  if (isSyncInProgress)
+    return { message: 'Syncronization is still in progress', syncStatus: SyncStatus.InProgress };
   main();
   publishEmail('Syncronization triggered');
-  return { message: 'Syncronization triggered', syncStatus: SyncStatus.Started }
+  return { message: 'Syncronization triggered', syncStatus: SyncStatus.Started };
 };
 
 // ------- Handlers -------
@@ -77,7 +78,8 @@ async function main() {
 
 async function syncFolders(folders, levels, folderType) {
   colors.bgCyan.white(
-    `\n------------- FOLDER TYPE: ${folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
+    `\n------------- FOLDER TYPE: ${
+      folderType === FOLDER_TYPE_RISK ? 'RISK' : 'CONTROL'
     } -------------\n`
   );
   for (let level = 1; level <= levels; level++) {
