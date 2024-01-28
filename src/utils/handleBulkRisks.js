@@ -3,14 +3,13 @@ import Risk from '../models/risk.js';
 import { createTMRisk, getTMRisk, removeTMRisk, updateTMRisk } from '../services/teammate/risks.js';
 import RiskFolder from '../models/RiskFolder.js';
 import asyncHolder from './asyncHolder.js';
+import syncManager from './syncManager.js';
 
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getOneSumXData.js').Risk[]} risks */
 export default async function handleBulkRisks(risks) {
   const risksCount = risks.length;
-  const numOfBatches = Math.ceil(
-    (risksCount ) / BATCH_COUNT
-  );
+  const numOfBatches = Math.ceil(risksCount / BATCH_COUNT);
   let batches = [];
   for (let index = 0; index < numOfBatches; index++) {
     batches = risks.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
@@ -18,6 +17,7 @@ export default async function handleBulkRisks(risks) {
     console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
     await Promise.all(batches.map(risk => handleRisk(risk)));
+    syncManager.updateProgress(batches.length);
   }
 }
 
@@ -46,6 +46,7 @@ async function handleRisk(risk) {
         // Revert back if cabinet is already created in Teammate
         await removeTMRisk(riskInTM.id);
       }
+      console.dir(error);
       throw new Error(`Couldn't create a Risk ${riskInTM ? `of title (${riskInTM.title})` : ''}`);
     }
   } else {
@@ -59,18 +60,21 @@ async function handleRisk(risk) {
         return { data: null, error: err.message };
       });
     riskInTM = data;
-    if (error)
+    if (error) {
+      console.dir(error);
       throw new Error(
         `Couldn't update a Risk ${
           riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
         }`
       );
+    }
     if (!riskInTM) {
       riskInTM = await createTMRisk(title, parentInfo.id).then(res => res.data);
     } else {
       try {
         riskInTM = await updateTMRisk(riskInSystem.id, title).then(res => res.data);
       } catch (error) {
+        console.dir(error);
         throw new Error(
           `Couldn't update a Risk ${
             riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''

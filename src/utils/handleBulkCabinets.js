@@ -6,11 +6,13 @@ import {
   updateTMCabinet,
 } from '../services/teammate/cabinets.js';
 import asyncHolder from './asyncHolder.js';
+import syncManager from './syncManager.js';
 
 /** @param {import('../services/oneSumX/getOneSumXData.js').Cabinet[]} cabinets */
 export default async function handleBulkCabinets(cabinets) {
   await asyncHolder(4000);
   await Promise.all(cabinets.map(cabinet => handleCabinet(cabinet)));
+  syncManager.updateProgress(cabinets.length);
 }
 
 /** @param {import('../services/oneSumX/getOneSumXData.js').Cabinet} cabinet */
@@ -50,7 +52,6 @@ async function handleCabinet(cabinet) {
         .then(res => res.data)
         .catch(err => {
           console.dir(err.message);
-          console.dir(err.config);
           return null;
         });
       if (!cabinetInTM) {
@@ -68,6 +69,7 @@ async function handleCabinet(cabinet) {
       await cabinetInSystem.save();
       console.log(`Cabinet (${cabinetInSystem.id}) updated!`);
     } catch (error) {
+      console.dir(error);
       throw new Error(
         `Couldn't update a Cabinet ${
           cabinetInSystem ? `of title (${cabinetInSystem.title}) ID = ${cabinetInSystemObj.id}` : ''

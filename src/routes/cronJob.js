@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../middlewares/authenticate.js';
-import { getSettings, setSettings } from '../controllers/cronJob/cronJob.js';
+import { getSettings, getSyncProgress, setSettings } from '../controllers/cronJob/cronJob.js';
 import { deleteAllTables, startSync } from '../controllers/cronJob/cabinets.js';
 import { getTMCabinet } from '../services/teammate/cabinets.js';
 import { getOSXData } from '../controllers/cronJob/osx.js';
@@ -17,6 +17,8 @@ router.get('/settings', authenticate, getSettings);
  *     description: Get One-SumX structured data!
  */
 router.get('/osx-data', getOSXData);
+
+router.get('/progress', getSyncProgress);
 
 router.post('/settings', authenticate, setSettings);
 /**
