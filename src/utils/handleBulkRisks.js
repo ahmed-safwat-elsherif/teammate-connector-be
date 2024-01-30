@@ -53,26 +53,25 @@ async function handleRisk(risk) {
     const riskInSystemObj = riskInSystem.toJSON();
     const { data, error } = await getTMRisk(riskInSystemObj.id)
       .then(res => ({ data: res.data }))
-      .catch(err => {
-        if (err.response.status === 404) {
-          return { data: null };
-        }
-        return { data: null, error: err.message };
-      });
+      .catch(error => ({ data: null, error }));
+    
     riskInTM = data;
-    if (error) {
+
+    if (error?.response?.status !== 404) {
       console.dir(error);
       throw new Error(
         `Couldn't update a Risk ${
           riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
         }`
       );
-    }
+    };
+    
     if (!riskInTM) {
-      riskInTM = await createTMRisk(title, parentInfo.id).then(res => res.data);
-    } else {
       try {
         riskInTM = await updateTMRisk(riskInSystem.id, title).then(res => res.data);
+        riskInSystem.id = riskInTM.id;
+        riskInSystem.title = title;
+        await riskInSystem.save();
       } catch (error) {
         console.dir(error);
         throw new Error(
@@ -81,12 +80,9 @@ async function handleRisk(risk) {
           }`
         );
       }
+    } else {
+      riskInTM = await createTMRisk(title, parentInfo.id).then(res => res.data);
     }
-    riskInSystem.title = title;
-    if (riskInTM) {
-      riskInSystem.id = riskInTM.id;
-    }
-    await riskInSystem.save();
   }
   console.log(`✔️ Handled Risk (osxID:${risk.id} => tmID:${riskInSystem?.id}) `);
 }
