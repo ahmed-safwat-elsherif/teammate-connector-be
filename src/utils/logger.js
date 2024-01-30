@@ -1,4 +1,11 @@
+
+const routesLogsBlackList = [
+  "/sync/progress"
+]
 export default (req, _, next) => {
-  console.log("Request: ", { method: req.method, endpoint: req.url });
+  const {method,url:endpoint}  = req;
+  if(!routesLogsBlackList.includes(endpoint)) {
+    console.log("Request: ", { method, endpoint });
+  }
   next();
 };
