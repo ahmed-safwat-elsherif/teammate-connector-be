@@ -67,6 +67,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
  */
 async function handleFolder(folder, parentIsFolder, folderType) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = folder;
+  console.log(`⏳ Handling Folder (osxID:${oneSumXId})`);
   // Define selected models (Risk or Control)
   const isRiskFolder = folderType === FOLDER_TYPE_RISK;
   const Folder = isRiskFolder ? RiskFolder : ControlFolder;

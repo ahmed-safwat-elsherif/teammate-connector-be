@@ -50,6 +50,7 @@ export default async function handleBulkControls(controls) {
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 async function handleControl(control) {
   const { id: oneSumXId, title, parentId, riskId: riskOsxId } = control;
+  console.log(`⏳ Handling Control (osxID:${oneSumXId})`);
 
   let controlInSystem = await Control.findOne({ where: { oneSumXId } });
   let parentInfo = null;

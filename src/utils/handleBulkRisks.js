@@ -24,6 +24,7 @@ export default async function handleBulkRisks(risks) {
 /** @param {import('../services/oneSumX/getOneSumXData.js').Risk} risk */
 async function handleRisk(risk) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = risk;
+  console.log(`⏳ Handling Risk (osxID:${oneSumXId})`);
 
   let riskInSystem = await Risk.findOne({ where: { oneSumXId } });
   let parentInfo = null;
@@ -65,7 +66,7 @@ async function handleRisk(risk) {
         }`
       );
     };
-    
+
     if (!riskInTM) {
       try {
         riskInTM = await updateTMRisk(riskInSystem.id, title).then(res => res.data);

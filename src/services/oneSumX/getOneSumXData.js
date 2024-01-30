@@ -39,26 +39,41 @@ function prepareRows(rows) {
     }
 
     if (row.ORG_ID_Level2) {
+      const parentId = row.ORG_ID_Level1
       if (!tree.has(row.ORG_ID_Level2)) {
         tree.set(row.ORG_ID_Level2, {
           id: row.ORG_ID_Level2,
           title: row.ORG_NAME_Level2,
-          parentId: row.ORG_ID_Level1,
+          parentId,
         });
       } else {
-        tree.get(row.ORG_ID_Level2).parentId = row.ORG_ID_Level1;
+        tree.get(row.ORG_ID_Level2).parentId = parentId;
       }
     }
 
     if (row.ORG_ID_Level3) {
+      const parentId = row.ORG_ID_Level2 || row.ORG_ID_Level1
       if (!tree.has(row.ORG_ID_Level3)) {
         tree.set(row.ORG_ID_Level3, {
           id: row.ORG_ID_Level3,
           title: row.ORG_NAME_Level3,
-          parentId: row.ORG_ID_Level2,
+          parentId,
         });
       } else {
-        tree.get(row.ORG_ID_Level3).parentId = row.ORG_ID_Level2;
+        tree.get(row.ORG_ID_Level3).parentId = parentId;
+      }
+    }
+    
+    if (row.ORG_ID_Level4) {
+      const parentId = row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1
+      if (!tree.has(row.ORG_ID_Level4)) {
+        tree.set(row.ORG_ID_Level4, {
+          id: row.ORG_ID_Level4,
+          title: row.ORG_NAME_Level4,
+          parentId,
+        });
+      } else {
+        tree.get(row.ORG_ID_Level4).parentId = parentId;
       }
     }
 
