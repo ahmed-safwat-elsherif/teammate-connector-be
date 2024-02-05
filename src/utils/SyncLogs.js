@@ -1,6 +1,7 @@
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import util from 'node:util';
 import moment from 'moment';
 import { __dirname } from '../../filePath.js';
 
@@ -35,7 +36,7 @@ export default class SyncLogs {
     }
   }
 
-  static async log(message) {
+  static #saveToLogs(...message) {
     // Check if SyncLogs has a pending error
     if (SyncLogs.error) {
       console.log(SyncLogs.error);
@@ -43,11 +44,20 @@ export default class SyncLogs {
     }
     // Check if SyncLogs has initialized a log file
     if (!SyncLogs.currLogFile) {
-      const id = crypto.randomUUID();
-      SyncLogs.currLogFile = `${moment().format()}_${id}`;
+      // const id = crypto.randomUUID();
+      SyncLogs.currLogFile = `${moment().format().replace(/:/g, '_')}`;
     }
-    SyncLogs.logs += `\n${message}`;
-    console.log(message);
+    SyncLogs.logs += `\n${util.format(...message)}`;
+  }
+
+  static log(...message) {
+    SyncLogs.#saveToLogs(...message);
+    console.log(...message);
+  }
+
+  static dir(...message) {
+    SyncLogs.#saveToLogs(...message);
+    console.dir(...message);
   }
 
   static async saveAndFinalize() {
@@ -60,14 +70,15 @@ export default class SyncLogs {
     if (!SyncLogs.currLogFile) {
       throw new Error('Current filename is not specified');
     }
-    const filePath = getPathOf(SyncLogs.logsFolder, SyncLogs.currLogFile);
+    const filePath = getPathOf(SyncLogs.logsFolder, `${SyncLogs.currLogFile}.txt`);
     try {
-      await fsPromises.writeFile(filePath, SyncLogs.logs);
+      await fsPromises.writeFile(filePath, SyncLogs.logs, 'utf8');
       // Reset values
       SyncLogs.currLogFile = null;
       SyncLogs.logs = '';
       SyncLogs.error = null;
     } catch (error) {
+      console.dir(error);
       throw new Error("Couldn't create or save the sync process logs");
     }
   }

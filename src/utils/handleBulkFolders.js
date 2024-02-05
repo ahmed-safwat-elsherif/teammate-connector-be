@@ -12,6 +12,7 @@ import {
 import ControlFolder from '../models/ControlFolder.js';
 import asyncHolder from './asyncHolder.js';
 import syncManager from './syncManager.js';
+import SyncLogs from './syncLogs.js';
 
 const BATCH_COUNT = 5;
 /**
@@ -24,7 +25,7 @@ export default async function handleBulkFolders(folders, parentIsFolder, folderT
   for (let index = 0; index < parentIds.length; index++) {
     const currentParentId = parentIds[index];
     const subFolders = folders.filter(folder => folder.parentId === currentParentId);
-    console.log(
+    SyncLogs.log(
       colors.bgBlue.white(
         `\n --- Subfolders of ${
           parentIsFolder ? 'Parent Folder Id=' : 'Cabinet Id='
@@ -51,7 +52,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
   for (let index = 0; index < numOfBatches; index++) {
     batchOfFolders = folders.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
 
-    console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    SyncLogs.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
     await Promise.all(
       batchOfFolders.map(folder => handleFolder(folder, parentIsFolder, folderType))
@@ -67,7 +68,7 @@ async function handleBatchsOfFolders(folders, parentIsFolder, folderType) {
  */
 async function handleFolder(folder, parentIsFolder, folderType) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = folder;
-  console.log(`⏳ Handling Folder (osxID:${oneSumXId})`);
+  SyncLogs.log(`⏳ Handling Folder (osxID:${oneSumXId})`);
   // Define selected models (Risk or Control)
   const isRiskFolder = folderType === FOLDER_TYPE_RISK;
   const Folder = isRiskFolder ? RiskFolder : ControlFolder;
@@ -101,7 +102,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
         // Revert back if cabinet is already created in Teammate
         await removeTMFolder(folderInTM.id, folderType);
       }
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(
         `Couldn't create a Folder ${
           folderInTM ? `of title (${folderInTM.title}) LEVEL ${folder.level}` : ''
@@ -120,7 +121,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
       });
     folderInTM = data;
     if (error) {
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(
         `Couldn't update a Folder ${
           folderInSystem
@@ -142,7 +143,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
           res => res.data
         );
       } catch (error) {
-        console.dir(error);
+        SyncLogs.dir(error);
         throw new Error(
           `Couldn't update a Folder ${
             folderInSystem
@@ -171,7 +172,7 @@ async function handleFolder(folder, parentIsFolder, folderType) {
       [folderAttr]: folderInSystem.toJSON().id,
     });
   }
-  console.log(
+  SyncLogs.log(
     `✔️ Handled Folder (osxID:${folder.id} => tmID:${folderInSystem?.id}) of LEVEL ${folder.level}`
   );
 }

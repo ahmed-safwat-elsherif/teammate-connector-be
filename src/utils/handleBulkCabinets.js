@@ -6,6 +6,7 @@ import {
   updateTMCabinet,
 } from '../services/teammate/cabinets.js';
 import asyncHolder from './asyncHolder.js';
+import SyncLogs from './syncLogs.js';
 import syncManager from './syncManager.js';
 
 /** @param {import('../services/oneSumX/getOneSumXData.js').Cabinet[]} cabinets */
@@ -32,13 +33,13 @@ async function handleCabinet(cabinet) {
         oneSumXId,
         title,
       });
-      console.log(`Cabinet (${cabinetInSystem?.id}) created!`);
+      SyncLogs.log(`Cabinet (${cabinetInSystem?.id}) created!`);
     } catch (err) {
       if (cabinetInTM) {
         // Revert back if cabinet is already created in Teammate
         await removeTMCabinet(cabinetInTM.id);
       }
-      console.dir(err);
+      SyncLogs.dir(err);
       throw new Error(
         `Couldn't create a Cabinet ${cabinetInTM ? `of title (${cabinetInTM.title})` : ''}`
       );
@@ -51,7 +52,7 @@ async function handleCabinet(cabinet) {
       cabinetInTM = await getTMCabinet(cabinetInSystemObj.id)
         .then(res => res.data)
         .catch(err => {
-          console.dir(err.message);
+          SyncLogs.dir(err.message);
           return null;
         });
       if (!cabinetInTM) {
@@ -67,9 +68,9 @@ async function handleCabinet(cabinet) {
         cabinetInSystem.id = cabinetInTM.id;
       }
       await cabinetInSystem.save();
-      console.log(`Cabinet (${cabinetInSystem.id}) updated!`);
+      SyncLogs.log(`Cabinet (${cabinetInSystem.id}) updated!`);
     } catch (error) {
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(
         `Couldn't update a Cabinet ${
           cabinetInSystem ? `of title (${cabinetInSystem.title}) ID = ${cabinetInSystemObj.id}` : ''
