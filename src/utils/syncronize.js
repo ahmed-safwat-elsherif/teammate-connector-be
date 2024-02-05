@@ -9,6 +9,7 @@ import getRiskToControls from '../services/oneSumX/getRiskToControls.js';
 import syncManager from './syncManager.js';
 import connectControlsToRisks from './connectControlsToRisks.js';
 import { publishEmail } from '../services/email.js';
+import SyncLogs from './syncLogs.js';
 
 export const SyncStatus = {
   Done: 'Done',
@@ -48,42 +49,43 @@ async function main() {
     );
 
     // handle cabinets
-    console.log('\n------------------------------');
-    console.log('      -:{ START Sync }:-     ');
-    console.log('------------------------------\n');
+    SyncLogs.log('\n------------------------------');
+    SyncLogs.log('      -:{ START Sync }:-     ');
+    SyncLogs.log('------------------------------\n');
 
     // Cabinets:
     await handleBulkCabinets(cabinets);
-    console.log(colors.bgGreen.white('✔️ Cabinets syncronized'));
+    SyncLogs.log(colors.bgGreen.white('✔️ Cabinets syncronized'));
     // Risk Folders:
-    console.log(colors.bgYellow.black('\n------------------'));
-    console.log(colors.bgYellow.black('-- Risk Folders --'));
-    console.log(colors.bgYellow.black('------------------\n'));
+    SyncLogs.log(colors.bgYellow.black('\n------------------'));
+    SyncLogs.log(colors.bgYellow.black('-- Risk Folders --'));
+    SyncLogs.log(colors.bgYellow.black('------------------\n'));
     await syncFolders(folders, levels, FOLDER_TYPE_RISK);
     // Control Folders:
-    console.log(colors.bgYellow.black('\n------------------'));
-    console.log(colors.bgYellow.black('-- Control Folders --'));
-    console.log(colors.bgYellow.black('------------------\n'));
+    SyncLogs.log(colors.bgYellow.black('\n------------------'));
+    SyncLogs.log(colors.bgYellow.black('-- Control Folders --'));
+    SyncLogs.log(colors.bgYellow.black('------------------\n'));
     await syncFolders(folders, levels, FOLDER_TYPE_CONTROL);
     // Risks:
-    console.log(colors.bgYellow.black('\n-----------'));
-    console.log(colors.bgYellow.black('-- Risks --'));
-    console.log(colors.bgYellow.black('-----------\n'));
+    SyncLogs.log(colors.bgYellow.black('\n-----------'));
+    SyncLogs.log(colors.bgYellow.black('-- Risks --'));
+    SyncLogs.log(colors.bgYellow.black('-----------\n'));
     await handleBulkRisks(risks);
     // Controls
-    console.log(colors.bgYellow.black('\n-------------'));
-    console.log(colors.bgYellow.black('-- Controls --'));
-    console.log(colors.bgYellow.black('-------------\n'));
+    SyncLogs.log(colors.bgYellow.black('\n-------------'));
+    SyncLogs.log(colors.bgYellow.black('-- Controls --'));
+    SyncLogs.log(colors.bgYellow.black('-------------\n'));
     await handleBulkControls(controls);
     // Connections
     await connectControlsToRisks(risksToControls);
-    await console.log('✅Syncronization done');
+    await SyncLogs.log('✅Syncronization done');
     syncManager.endSync();
   } catch (error) {
-    console.log('❌Syncronization failed');
-    console.log({ message: error.message });
+    SyncLogs.log('❌Syncronization failed');
+    SyncLogs.log({ message: error.message });
     syncManager.endSync(true);
   }
+  SyncLogs.saveAndFinalize();
 }
 
 async function syncFolders(folders, levels, folderType) {
@@ -93,7 +95,7 @@ async function syncFolders(folders, levels, folderType) {
     } -------------\n`
   );
   for (let level = 1; level <= levels; level++) {
-    console.log(colors.bgMagenta.white(`------------- LEVEL ${level} -------------`));
+    SyncLogs.log(colors.bgMagenta.white(`------------- LEVEL ${level} -------------`));
     const currentLevelFolders = folders.filter(folder => folder.level === level);
     await handleBulkFolders(currentLevelFolders, level > 1, folderType);
   }

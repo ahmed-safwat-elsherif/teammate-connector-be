@@ -12,6 +12,7 @@ import Risk from '../models/risk.js';
 import RiskFolder from '../models/RiskFolder.js';
 import FolderMap from '../models/FolderMap.js';
 import syncManager from './syncManager.js';
+import SyncLogs from './syncLogs.js';
 
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control[]} controls */
@@ -29,7 +30,7 @@ export default async function handleBulkControls(controls) {
   for (let index = 0; index < numOfBatches; index++) {
     batches = controls.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
     // Handle Control Folder
-    console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    SyncLogs.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
     await Promise.all(
       batches.map(async control => {
@@ -50,7 +51,7 @@ export default async function handleBulkControls(controls) {
 /** @param {import('../services/oneSumX/getRiskToControls.js').Control} control */
 async function handleControl(control) {
   const { id: oneSumXId, title, parentId, riskId: riskOsxId } = control;
-  console.log(`⏳ Handling Control (osxID:${oneSumXId})`);
+  SyncLogs.log(`⏳ Handling Control (osxID:${oneSumXId})`);
 
   let controlInSystem = await Control.findOne({ where: { oneSumXId } });
   let parentInfo = null;
@@ -58,7 +59,7 @@ async function handleControl(control) {
   parentInfo = await ControlFolder.findOne({
     where: { id: parentId },
   });
-  console.log({ control, parentInfo: parentInfo?.toJSON() });
+  SyncLogs.log({ control, parentInfo: parentInfo?.toJSON() });
   if (!controlInSystem) {
     try {
       // Add the cabinet for both Sync System & Teammate databases
@@ -75,7 +76,7 @@ async function handleControl(control) {
         // Revert back if cabinet is already created in Teammate
         await removeTMControl(controlInTM.id);
       }
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(
         `Couldn't create a Control ${controlInTM ? `of title (${controlInTM.title})` : ''}`
       );
@@ -103,7 +104,7 @@ async function handleControl(control) {
       try {
         controlInTM = await updateTMControl(controlInSystem.id, title).then(res => res.data);
       } catch (error) {
-        console.dir(error);
+        SyncLogs.dir(error);
         throw new Error(
           `Couldn't update a Control ${
             controlInSystem ? `of title (${controlInSystem.title}) ID=${controlInSystem.id}` : ''
@@ -117,19 +118,19 @@ async function handleControl(control) {
     }
     await controlInSystem.save();
   }
-  console.log(`✔️ Handled Control (osxID:${control.id} => tmID:${controlInSystem?.id}) `);
+  SyncLogs.log(`✔️ Handled Control (osxID:${control.id} => tmID:${controlInSystem?.id}) `);
 }
 
 async function getControlFolderByRiskId(riskId) {
-  console.log(`Get data by riskid: ${riskId}`);
+  SyncLogs.log(`Get data by riskid: ${riskId}`);
   const risk = await Risk.findOne({ where: { oneSumXId: riskId } });
   if (!risk) return;
-  console.log(risk?.toJSON());
+  SyncLogs.log(risk?.toJSON());
   const folderMap = await FolderMap.findOne({ where: { riskFolderId: risk?.parentId } });
-  console.log('folderMap:');
-  console.log(folderMap?.toJSON());
+  SyncLogs.log('folderMap:');
+  SyncLogs.log(folderMap?.toJSON());
   const controlFolder = await ControlFolder.findOne({ where: { id: folderMap?.controlFolderId } });
-  console.log('control folder:');
-  console.log(controlFolder?.toJSON());
+  SyncLogs.log('control folder:');
+  SyncLogs.log(controlFolder?.toJSON());
   return controlFolder.toJSON();
 }

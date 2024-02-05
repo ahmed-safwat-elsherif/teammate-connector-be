@@ -4,6 +4,7 @@ import { createTMRisk, getTMRisk, removeTMRisk, updateTMRisk } from '../services
 import RiskFolder from '../models/RiskFolder.js';
 import asyncHolder from './asyncHolder.js';
 import syncManager from './syncManager.js';
+import SyncLogs from './syncLogs.js';
 
 const BATCH_COUNT = 5;
 /** @param {import('../services/oneSumX/getOneSumXData.js').Risk[]} risks */
@@ -14,7 +15,7 @@ export default async function handleBulkRisks(risks) {
   for (let index = 0; index < numOfBatches; index++) {
     batches = risks.slice(index * BATCH_COUNT, index * BATCH_COUNT + BATCH_COUNT);
 
-    console.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
+    SyncLogs.log(colors.bold.blue(`--------- BATCH ${index} ---------`));
     await asyncHolder(4000);
     await Promise.all(batches.map(risk => handleRisk(risk)));
     syncManager.updateProgress(batches.length);
@@ -24,7 +25,7 @@ export default async function handleBulkRisks(risks) {
 /** @param {import('../services/oneSumX/getOneSumXData.js').Risk} risk */
 async function handleRisk(risk) {
   const { id: oneSumXId, title, parentId: oneSumXParentId } = risk;
-  console.log(`⏳ Handling Risk (osxID:${oneSumXId})`);
+  SyncLogs.log(`⏳ Handling Risk (osxID:${oneSumXId})`);
 
   let riskInSystem = await Risk.findOne({ where: { oneSumXId } });
   let parentInfo = null;
@@ -47,7 +48,7 @@ async function handleRisk(risk) {
         // Revert back if cabinet is already created in Teammate
         await removeTMRisk(riskInTM.id);
       }
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(`Couldn't create a Risk ${riskInTM ? `of title (${riskInTM.title})` : ''}`);
     }
   } else {
@@ -55,17 +56,17 @@ async function handleRisk(risk) {
     const { data, error } = await getTMRisk(riskInSystemObj.id)
       .then(res => ({ data: res.data }))
       .catch(error => ({ data: null, error }));
-    
+
     riskInTM = data;
 
     if (error?.response?.status !== 404) {
-      console.dir(error);
+      SyncLogs.dir(error);
       throw new Error(
         `Couldn't update a Risk ${
           riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
         }`
       );
-    };
+    }
 
     if (!riskInTM) {
       try {
@@ -74,7 +75,7 @@ async function handleRisk(risk) {
         riskInSystem.title = title;
         await riskInSystem.save();
       } catch (error) {
-        console.dir(error);
+        SyncLogs.dir(error);
         throw new Error(
           `Couldn't update a Risk ${
             riskInSystem ? `of title (${riskInSystem.title}) ID=${riskInSystem.id}` : ''
@@ -85,5 +86,5 @@ async function handleRisk(risk) {
       riskInTM = await createTMRisk(title, parentInfo.id).then(res => res.data);
     }
   }
-  console.log(`✔️ Handled Risk (osxID:${risk.id} => tmID:${riskInSystem?.id}) `);
+  SyncLogs.log(`✔️ Handled Risk (osxID:${risk.id} => tmID:${riskInSystem?.id}) `);
 }

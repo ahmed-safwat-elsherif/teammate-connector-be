@@ -11,6 +11,9 @@
 # production
 /build
 
+# logs
+src/syncLogs
+
 # misc
 .DS_Store
 .env
