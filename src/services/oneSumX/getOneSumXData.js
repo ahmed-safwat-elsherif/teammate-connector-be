@@ -77,12 +77,40 @@ function prepareRows(rows) {
       }
     }
 
+    if (row.ACTIVITY_ID) {
+      const parentId = row.ORG_ID_Level4 ||row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1
+      if (!tree.has(row.ACTIVITY_ID)) {
+        tree.set(row.ACTIVITY_ID, {
+          id: row.ACTIVITY_ID,
+          title: row.ACTIVITY_NAME,
+          parentId,
+        });
+      } else {
+        tree.get(row.ACTIVITY_ID).parentId = parentId;
+      }
+    }
+
+    if (row.PROCESS_ID) {
+      const parentId = row.ACTIVITY_ID || row.ORG_ID_Level4 ||row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1
+      if (!tree.has(row.PROCESS_ID)) {
+        tree.set(row.PROCESS_ID, {
+          id: row.PROCESS_ID,
+          title: row.PROCESS_DESC,
+          parentId,
+        });
+      } else {
+        tree.get(row.PROCESS_ID).parentId = parentId;
+      }
+    }
+
     // Risks
     if (row.risk_id && !risks.has(row.risk_id)) {
+      const parentId = row.PROCESS_ID||row.ACTIVITY_ID || row.ORG_ID_Level4 ||row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1
+
       risks.set(row.risk_id, {
         id: row.risk_id,
         title: row.risk_name,
-        parentId: row.ORG_ID_Level4 || row.ORG_ID_Level3 || row.ORG_ID_Level2 || row.ORG_ID_Level1,
+        parentId,
       });
     }
   });
@@ -125,6 +153,10 @@ function assignLevel(nodes, node, level = 0) {
  *   ORG_NAME_Level2: string;
  *   ORG_NAME_Level3: string;
  *   ORG_NAME_Level4: string;
+ *   ACTIVITY_ID:number;
+ *   ACTIVITY_NAME:string;
+ *   PROCESS_ID:number;
+ *   PROCESS_DESC:string;
  *   risk_id: number;
  *   risk_name: string;
  * }} OneSumXRisk
