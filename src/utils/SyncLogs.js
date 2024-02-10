@@ -11,6 +11,7 @@ export default class SyncLogs {
   static currLogFile;
   /** It represents the current logs filename */
   static #logsFolder = 'syncLogs';
+  static #ext = 'log';
   static logs = '';
   /** It represents any pending error */
   static error;
@@ -20,6 +21,10 @@ export default class SyncLogs {
 
   static get logsFolderName() {
     return SyncLogs.#logsFolder;
+  }
+
+  static get fileExtension() {
+    return SyncLogs.#ext;
   }
 
   static async init() {
@@ -74,7 +79,7 @@ export default class SyncLogs {
     if (!SyncLogs.currLogFile) {
       throw new Error('Current filename is not specified');
     }
-    const filePath = getPathOf(SyncLogs.#logsFolder, `${SyncLogs.currLogFile}.txt`);
+    const filePath = getPathOf(SyncLogs.#logsFolder, `${SyncLogs.currLogFile}.${SyncLogs.#ext}`);
     try {
       await fsPromises.writeFile(filePath, SyncLogs.logs, 'utf8');
       // Reset values
