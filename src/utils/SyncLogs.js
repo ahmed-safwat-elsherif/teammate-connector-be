@@ -1,6 +1,5 @@
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
-import crypto from 'node:crypto';
 import util from 'node:util';
 import moment from 'moment';
 import { __dirname } from '../../filePath.js';
@@ -11,16 +10,21 @@ export default class SyncLogs {
   /** It represents the logs folder name */
   static currLogFile;
   /** It represents the current logs filename */
-  static logsFolder = 'syncLogs';
+  static #logsFolder = 'syncLogs';
   static logs = '';
   /** It represents any pending error */
   static error;
   constructor() {
     console.log('test');
   }
+
+  static get logsFolderName() {
+    return SyncLogs.#logsFolder;
+  }
+
   static async init() {
     console.log('Initializing Logs folder .. ');
-    const logsPath = getPathOf(SyncLogs.logsFolder);
+    const logsPath = getPathOf(SyncLogs.#logsFolder);
     try {
       // Check if folder exists:
       const dir = await fsPromises.opendir(logsPath);
@@ -70,7 +74,7 @@ export default class SyncLogs {
     if (!SyncLogs.currLogFile) {
       throw new Error('Current filename is not specified');
     }
-    const filePath = getPathOf(SyncLogs.logsFolder, `${SyncLogs.currLogFile}.txt`);
+    const filePath = getPathOf(SyncLogs.#logsFolder, `${SyncLogs.currLogFile}.txt`);
     try {
       await fsPromises.writeFile(filePath, SyncLogs.logs, 'utf8');
       // Reset values
