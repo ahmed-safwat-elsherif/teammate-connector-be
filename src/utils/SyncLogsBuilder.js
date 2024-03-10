@@ -6,7 +6,7 @@ import { __dirname } from '../../filePath.js';
 
 const getPathOf = (...fileOrFolder) => path.join(__dirname, 'src', ...fileOrFolder);
 
-export default class SyncLogs {
+class SyncLogsBuilder {
   /** It represents the logs folder name */
   static currLogFile;
   /** It represents the current logs filename */
@@ -20,16 +20,16 @@ export default class SyncLogs {
   }
 
   static get logsFolderName() {
-    return SyncLogs.#logsFolder;
+    return SyncLogsBuilder.#logsFolder;
   }
 
   static get fileExtension() {
-    return SyncLogs.#ext;
+    return SyncLogsBuilder.#ext;
   }
 
   static async init() {
     console.log('Initializing Logs folder .. ');
-    const logsPath = getPathOf(SyncLogs.#logsFolder);
+    const logsPath = getPathOf(SyncLogsBuilder.#logsFolder);
     try {
       // Check if folder exists:
       const dir = await fsPromises.opendir(logsPath);
@@ -40,55 +40,60 @@ export default class SyncLogs {
         console.log('✔️ Logs Folder created successfully');
       } catch (error) {
         console.log("❌ Couldn't create the folder");
-        SyncLogs.error = error?.message || "Couldn't create the folder";
+        SyncLogsBuilder.error = error?.message || "Couldn't create the folder";
       }
     }
   }
 
   static #saveToLogs(...message) {
-    // Check if SyncLogs has a pending error
-    if (SyncLogs.error) {
-      console.log(SyncLogs.error);
-      throw new Error(SyncLogs.error);
+    // Check if SyncLogsBuilder has a pending error
+    if (SyncLogsBuilder.error) {
+      console.log(SyncLogsBuilder.error);
+      throw new Error(SyncLogsBuilder.error);
     }
-    // Check if SyncLogs has initialized a log file
-    if (!SyncLogs.currLogFile) {
+    // Check if SyncLogsBuilder has initialized a log file
+    if (!SyncLogsBuilder.currLogFile) {
       // const id = crypto.randomUUID();
-      SyncLogs.currLogFile = `${moment().format().replace(/:/g, '_')}`;
+      SyncLogsBuilder.currLogFile = `${moment().format().replace(/:/g, '_')}`;
     }
-    SyncLogs.logs += `\n${util.format(...message)}`;
+    SyncLogsBuilder.logs += `\n${util.format(...message)}`;
   }
 
   static log(...message) {
-    SyncLogs.#saveToLogs(...message);
+    SyncLogsBuilder.#saveToLogs(...message);
     console.log(...message);
   }
 
   static dir(...message) {
-    SyncLogs.#saveToLogs(...message);
+    SyncLogsBuilder.#saveToLogs(...message);
     console.dir(...message);
   }
 
   static async saveAndFinalize() {
-    // Check if SyncLogs has a pending error
-    if (SyncLogs.error) {
-      console.log(SyncLogs.error);
-      throw new Error(SyncLogs.error);
+    // Check if SyncLogsBuilder has a pending error
+    if (SyncLogsBuilder.error) {
+      console.log(SyncLogsBuilder.error);
+      throw new Error(SyncLogsBuilder.error);
     }
-    // Check if SyncLogs has initialized a log file
-    if (!SyncLogs.currLogFile) {
+    // Check if SyncLogsBuilder has initialized a log file
+    if (!SyncLogsBuilder.currLogFile) {
       throw new Error('Current filename is not specified');
     }
-    const filePath = getPathOf(SyncLogs.#logsFolder, `${SyncLogs.currLogFile}.${SyncLogs.#ext}`);
+    const filePath = getPathOf(
+      SyncLogsBuilder.#logsFolder,
+      `${SyncLogsBuilder.currLogFile}.${SyncLogsBuilder.#ext}`
+    );
     try {
-      await fsPromises.writeFile(filePath, SyncLogs.logs, 'utf8');
+      await fsPromises.writeFile(filePath, SyncLogsBuilder.logs, 'utf8');
       // Reset values
-      SyncLogs.currLogFile = null;
-      SyncLogs.logs = '';
-      SyncLogs.error = null;
+      SyncLogsBuilder.currLogFile = null;
+      SyncLogsBuilder.logs = '';
+      SyncLogsBuilder.error = null;
     } catch (error) {
       console.dir(error);
       throw new Error("Couldn't create or save the sync process logs");
     }
   }
 }
+
+export default SyncLogsBuilder;

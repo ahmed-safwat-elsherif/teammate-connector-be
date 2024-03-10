@@ -1,19 +1,19 @@
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import { __dirname } from '../../filePath.js';
-import SyncLogs from '../utils/syncLogs.js';
+import SyncLogsBuilder from '../utils/SyncLogsBuilder.js';
 import fileExists from '../utils/fileExists.js';
 
 const getPathOf = (...fileOrFolder) => path.join(__dirname, 'src', ...fileOrFolder);
 
-const logsPath = getPathOf(SyncLogs.logsFolderName);
+const logsPath = getPathOf(SyncLogsBuilder.logsFolderName);
 
 /**
  * Reading the list of log files inside the log folder
  *
  * @param {import('express').Request} _
  * @param {import('express').Response} res
- * @see {@link SyncLogs.logsFolderName}
+ * @see {@link SyncLogsBuilder.logsFolderName}
  */
 export const getLogFiles = async (_, res) => {
   // Get Log files
@@ -31,7 +31,7 @@ export const getLogFiles = async (_, res) => {
  *
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @see {@link SyncLogs.logsFolderName}
+ * @see {@link SyncLogsBuilder.logsFolderName}
  */
 export const getFileByName = async (req, res) => {
   // Get Log files
@@ -43,7 +43,7 @@ export const getFileByName = async (req, res) => {
       return;
     }
 
-    const filePath = getPathOf(SyncLogs.logsFolderName, filename);
+    const filePath = getPathOf(SyncLogsBuilder.logsFolderName, filename);
     const exists = await fileExists(filePath);
 
     if (!exists) {

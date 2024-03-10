@@ -9,13 +9,15 @@ import userRoutes from './src/routes/users.js';
 import logsRoutes from './src/routes/logs.js';
 import './src/db/index.js';
 import swaggerDocs from './src/utils/swagger.js';
-import SyncLogs from './src/utils/SyncLogs.js';
+import SyncLogsBuilder from './src/utils/SyncLogsBuilder.js';
 
 // Init the Express instance
 const app = express();
 
 // Init the Logs Folder
-await SyncLogs.init();
+(async () => {
+  await SyncLogsBuilder.init();
+})();
 
 // middlewares
 app.use(cors());
