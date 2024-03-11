@@ -2,9 +2,9 @@ import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import util from 'node:util';
 import moment from 'moment';
-import { __dirname } from '../../filePath.js';
+import { getURLDirname } from '../../filePath.js';
 
-const getPathOf = (...fileOrFolder) => path.join(__dirname, 'src', ...fileOrFolder);
+const getPathOf = (...fileOrFolder) => path.join(getURLDirname(), 'src', ...fileOrFolder);
 
 export default class SyncLogs {
   /** It represents the logs folder name */

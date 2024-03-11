@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { __dirname } from '../../filePath.js';
+import { getURLDirname } from '../../filePath.js';
 
-const PACKAGE_JSON_PATH = path.join(__dirname, '/package.json');
+const PACKAGE_JSON_PATH = path.join(getURLDirname(), '/package.json');
 const { version } = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, { encoding: 'utf-8' }));
 
 /** @type {swaggerJsdoc.Options} */
