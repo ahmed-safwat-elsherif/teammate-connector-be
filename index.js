@@ -8,14 +8,15 @@ import cronJobRoutes from './src/routes/cronJob.js';
 import userRoutes from './src/routes/users.js';
 import logsRoutes from './src/routes/logs.js';
 import './src/db/index.js';
-import swaggerDocs from './src/utils/swagger.js';
-import SyncLogs from './src/utils/SyncLogs.js';
+import SyncLogs from './src/utils/syncLogs.js';
 
 // Init the Express instance
 const app = express();
 
 // Init the Logs Folder
-await SyncLogs.init();
+(async () => {
+  await SyncLogs.init();
+})();
 
 // middlewares
 app.use(cors());
@@ -35,7 +36,7 @@ app.use('/logs', logsRoutes);
 
 // Start
 app.listen(serverPort, async () => {
-  swaggerDocs(app, serverPort);
+  // swaggerDocs(app, serverPort);
   // await open('http://localhost:3001/docs');
   console.log(`Server is running on port:${serverPort}`);
 });

@@ -4,7 +4,7 @@ import util from 'node:util';
 import moment from 'moment';
 import { getURLDirname } from '../../filePath.js';
 
-const getPathOf = (...fileOrFolder) => path.join(getURLDirname(), 'src', ...fileOrFolder);
+const getPathOf = (...fileOrFolder) => path.join('.', 'src', ...fileOrFolder);
 
 export default class SyncLogs {
   /** It represents the logs folder name */

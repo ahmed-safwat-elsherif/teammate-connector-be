@@ -1,3 +1,5 @@
-import * as url from "url";
-export const __filename = url.fileURLToPath(import.meta.url);
-export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+import { dirname } from 'node:path';
+import * as url from 'node:url';
+
+export const getURLFilename = () => url.fileURLToPath(import.meta.url);
+export const getURLDirname = () => dirname(getURLFilename());

@@ -1,10 +1,11 @@
 import fsPromises from 'node:fs/promises';
-import path from 'node:path';
-import { getURLDirname } from '../../filePath.js';
 import SyncLogs from '../utils/syncLogs.js';
 import fileExists from '../utils/fileExists.js';
 
-const getPathOf = (...fileOrFolder) => path.join(getURLDirname(), 'src', ...fileOrFolder);
+const getPathOf = (...fileOrFolder) => {
+  const segments = fileOrFolder.join('/');
+  return `./src/${segments}`;
+};
 
 const logsPath = getPathOf(SyncLogs.logsFolderName);
 

@@ -12,7 +12,11 @@
     "win_start_log": "node index.js | Tee-Object -FilePath \"logs\\$(date).log\"",
     "dbg_start": "node --inspect-brk index.js",
     "dev": "nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack --config webpack.config.js",
+    "serve:build": "npx pm2 start main.js",
+    "stop:build": "npx pm2 stop main.js",
+    "delete:build": "npx pm2 delete main.js"
   },
   "keywords": [],
   "author": "",
